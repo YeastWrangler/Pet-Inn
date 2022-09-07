@@ -1,6 +1,6 @@
 
 
-export const colors = {mainColor: 'yellow', secondColor: 'orange'}
+export const colors = {mainColor: 'pink', secondColor: 'orange', buttonColor:"#0782F9"}
 
 
 
