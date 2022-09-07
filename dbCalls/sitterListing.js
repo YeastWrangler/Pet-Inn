@@ -63,4 +63,35 @@ async function deleteSitterListing(id) {
 	}
 }
 
-module.exports = { postSitterListing, getSitterListings, deleteSitterListing };
+async function getOneSitterListing(id) {
+	const { MongoClient, ObjectId } = require("mongodb");
+	const uri =
+		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
+	const client = new MongoClient(uri);
+
+	async function findListing() {
+		const findData = { _id: ObjectId(id) };
+		const cursor = await client
+			.db("PetInn")
+			.collection("SitterListings")
+			.findOne(findData);
+		return cursor;
+	}
+
+	try {
+		await client.connect();
+		const result = await findListing();
+		return result;
+	} finally {
+		setTimeout(() => {
+			client.close();
+		}, 1500);
+	}
+}
+
+module.exports = {
+	postSitterListing,
+	getSitterListings,
+	deleteSitterListing,
+	getOneSitterListing,
+};
