@@ -35,7 +35,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
             <TouchableOpacity style={[styles.button, styles.buttonOutline]} onPress={handleSignUp}>
                 <Text style={styles.buttonOutlineText}>Register</Text>
             </TouchableOpacity>
-            <Button style={[styles.guestButton, styles.guestButtonOutline]}title="Continue as Guest"/>
+            <Button style={[styles.guestButton, styles.guestButtonOutline]}title="Continue as Guest" onPress={pressHandler}/>
         </View>
     </KeyboardAvoidingView>
     // <View style={styles.backGround}>
@@ -50,16 +50,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
  }
 const styles = StyleSheet.create({
-    // backGround: {
-    //     flex: 1,
-       
-    //     backgroundColor: colors.secondColor
-    // },
-    // text: {
-    //     color: "black",
-    //     fontSize: "20px",
-    //     alignContent: "center"
-    // },
+    
     container: {
         flex:1,
         justifyContent: "center",
