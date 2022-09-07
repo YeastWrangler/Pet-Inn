@@ -3,6 +3,7 @@ export default async function getUser() {
 	const uri =
 		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
 	const client = new MongoClient(uri);
+
 	async function findData(client) {
 		const cursor = await client
 			.db("PetInn")
@@ -40,4 +41,5 @@ export default async function getUser() {
 // 		await client.close();
 // 	}
 // }
+
 getUser().catch(console.error);
