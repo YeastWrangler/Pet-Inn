@@ -1,4 +1,4 @@
-export default async function getUser() {
+async function getUser() {
 	const { MongoClient } = require("mongodb");
 	const uri =
 		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
@@ -9,12 +9,12 @@ export default async function getUser() {
 			.db("PetInn")
 			.collection("users")
 			.findOne({ username: "Linux" });
-		// const result = await cursor.toArray();
-		console.log("result", cursor);
+		return cursor;
 	}
 	try {
 		await client.connect();
-		await findData(client);
+		const result = await findData(client);
+		return result;
 	} catch (e) {
 		console.error(e);
 	} finally {
@@ -22,24 +22,42 @@ export default async function getUser() {
 	}
 }
 
-// export default async function getUsers() {
-// 	const { MongoClient } = require("mongodb");
-// 	const uri =
-// 		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
-// 	const client = new MongoClient(uri);
-// 	async function findData(client) {
-// 		const cursor = await client.db("PetInn").collection("users").find({});
-// 		const result = await cursor.toArray();
-// 		console.log("result", result);
-// 	}
-// 	try {
-// 		await client.connect();
-// 		await findData(client);
-// 	} catch (e) {
-// 		console.error(e);
-// 	} finally {
-// 		await client.close();
-// 	}
-// }
+async function addUser(userdata) {
+	const { MongoClient } = require("mongodb");
+	const uri =
+		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
+	const client = new MongoClient(uri);
 
-getUser().catch(console.error);
+	try {
+		await client.connect();
+		await client.db("PetInn").collection("users").insertOne(userdata);
+		return "User created successfully";
+	} catch (e) {
+		console.error(e);
+	} finally {
+		await client.close();
+	}
+}
+
+async function deleteUser(id) {
+	const { MongoClient, ObjectId } = require("mongodb");
+	const uri =
+		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
+	const client = new MongoClient(uri);
+
+	async function deleteListing() {
+		const deleteData = { _id: ObjectId(id) };
+		await client.db("PetInn").collection("users").deleteOne(deleteData);
+	}
+
+	try {
+		await client.connect();
+		await deleteListing();
+	} finally {
+		setTimeout(() => {
+			client.close();
+		}, 1500);
+	}
+}
+
+module.exports = { getUser, deleteUser, addUser };
