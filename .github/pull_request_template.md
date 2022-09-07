@@ -5,10 +5,6 @@
 
 ## How?
 
-## Testing?
-
-## Screenshots (optional)
-
 ## Anything Else?
 
 ## Who Made The Changes
