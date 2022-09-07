@@ -6,6 +6,7 @@ export default userData = [
       "https://marvelcinematicuniverse.fandom.com/wiki/Thanos/Cosmic_Time_Heist",
     bio: "Don't touch my rocks",
     location: "Hull",
+    ratings: 2,
     watchlist: [],
   },
   {
@@ -14,14 +15,16 @@ export default userData = [
     avatar_url: "https://lotr.fandom.com/wiki/Gandalf",
     bio: "You shall not pass",
     location: "London",
+    ratings: 1,
     watchlist: [],
   },
   {
-    username: "John Fifa",
-    password: "John Fifa",
+    username: "john fifa",
+    password: "john fifa",
     avatar_url: "https://www.cristianoronaldo.com/",
     bio: "I play football professionally",
     location: "Funchal",
+    ratings: 4,
     watchlist: [],
   },
 ];
