@@ -1,3 +1,8 @@
 URL for mongo: https://data.mongodb-api.com/app/data-opudy/endpoint/data/v1
 login: tedNorthcoders
 password: PetInn0369
+COMETCHAT_CONSTANTS = {
+	APP_ID: "218018eaf2dcee4f",
+	REGION: "eu",
+	AUTH_KEY: "e1aa9bce0000c4474261884d7bce10de54aaaf69",
+};
