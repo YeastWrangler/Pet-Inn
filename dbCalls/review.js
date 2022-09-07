@@ -13,21 +13,25 @@ async function postReview(newPost) {
 	}
 }
 
-async function getReviews() {
+async function getReviews(username) {
 	const { MongoClient } = require("mongodb");
 	const uri =
 		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
 	const client = new MongoClient(uri);
 
-	async function findListings() {
-		const cursor = await client.db("PetInn").collection("Reviews").find({});
+	async function findReviews() {
+		const reviewsByUser = { username: username };
+		const cursor = await client
+			.db("PetInn")
+			.collection("Reviews")
+			.find(reviewsByUser);
 		const result = await cursor.toArray();
 		return result;
 	}
 
 	try {
 		await client.connect();
-		const result = await findListings();
+		const result = await findReviews();
 		return result;
 	} finally {
 		setTimeout(() => {

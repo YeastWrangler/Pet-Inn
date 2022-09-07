@@ -45,14 +45,14 @@ async function deleteUser(id) {
 		"mongodb+srv://tedNorthcoders:PetInn0369@petinn.gyiq5ap.mongodb.net/?retryWrites=true&w=majority";
 	const client = new MongoClient(uri);
 
-	async function deleteListing() {
+	async function removeUser() {
 		const deleteData = { _id: ObjectId(id) };
 		await client.db("PetInn").collection("users").deleteOne(deleteData);
 	}
 
 	try {
 		await client.connect();
-		await deleteListing();
+		await removeUser();
 	} finally {
 		setTimeout(() => {
 			client.close();
