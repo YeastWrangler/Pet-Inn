@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
-import { colors } from '../assets/colors';
-import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useState } from "react";
+import { colors } from "../assets/colors";
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
+import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 
 
  const Login = ({navigation}) => {
@@ -44,71 +43,66 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
   )
 
  }
+
+
 const styles = StyleSheet.create({
-    
-    container: {
-        flex:1,
-        justifyContent: "center",
-        alignItems: "center",
-        
-    },
-    inputContainer: {
-        width:"80%"
-    },
-    input: {
-        backgroundColor:"white",
-        paddingHorizontal:15,
-        paddingVertical:10,
-        borderRadius:10,
-        marginTop:5,
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputContainer: {
+    width: "80%",
+  },
+  input: {
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+  },
+  buttonContainer: {
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 40,
+  },
+  button: {
+    backgroundColor: colors.buttonColor,
+    width: "100%", //adjust size so buttons match in width
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonOutline: {
+    backgroundColor: "white",
+    marginTop: 5,
+    borderWidth: 2,
+    borderColor: colors.buttonColor,
+  },
+  guestButton: {
+    backgroundColor: colors.mainColor,
+    width: "100%", //adjust size so buttons match in width
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  guestButtonOutline: {
+    backgroundColor: "white",
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: colors.secondColor,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 16,
+  },
+  buttonOutlineText: {
+    color: colors.buttonColor,
+    fontWeight: "700",
+    fontSize: 16,
+  },
+});
 
-    },
-    buttonContainer: {
-        width:"60%",
-        justifyContent:"center",
-        alignItems:"center",
-        marginTop:40,
-    },
-    button:{
-        backgroundColor:colors.buttonColor,
-        width:"100%",//adjust size so buttons match in width
-        padding:15,
-        borderRadius:10,
-        alignItems:"center"
-
-    },
-    buttonOutline:{
-        backgroundColor:"white",
-        marginTop:5,
-        borderWidth:2,
-        borderColor:colors.buttonColor
-    },
-    guestButton: {
-        backgroundColor:colors.mainColor,
-        width:"100%",//adjust size so buttons match in width
-        padding:20,
-        borderRadius:10,
-        alignItems:"center"
-    },
-    guestButtonOutline:{
-        backgroundColor:"white",
-        marginTop:20,
-        borderWidth:2,
-        borderColor:colors.secondColor
-    },
-    buttonText: {
-        color:"white",
-        fontWeight:"700",
-        fontSize:16,
-    },
-    buttonOutlineText: {
-        color:colors.buttonColor,
-        fontWeight:"700",
-        fontSize:16,
-    }
-
-
-})
- 
-
-export default Login
+export default Login;
