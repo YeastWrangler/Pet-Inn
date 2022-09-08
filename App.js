@@ -1,11 +1,20 @@
 import React from "react"
-import { StyleSheet, Text, View, ImageBackground, Image, Link } from 'react-native';
-import Navigator from "./homeStack"
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import NavBar from "./components/NavBar";
+
 
 export default function App () {
+  
 
+const Stack = createNativeStackNavigator();
+
+  
   return (
-    <Navigator />
+    <NavigationContainer>
+        <NavBar/>
+  </NavigationContainer>
   )
 
 }

@@ -7,11 +7,11 @@ import { StyleSheet, Text, View, Button, Image, TouchableOpacity} from 'react-na
 const userName = "Shrek"
 
 const handlePetsPress = () => {
-    navigation.navigate("PetsList")
+    navigation.navigate("")
 }
 
 const handleServicesPress= () => {
-    navigation.navigate("ServicesList")
+    navigation.navigate("")
 }
 
 const handlePostServices = () => {

@@ -4,13 +4,14 @@ import { StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+
  const Login = ({navigation}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const pressHandler = () => {
-        navigation.navigate("Loggedin")
+        navigation.navigate("LoggedinHome")
     }
     const handleLoginPress = () => {
         console.log("handle login press")
@@ -23,6 +24,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+       
         <View style={styles.inputContainer}>
         <TextInput style={styles.input}placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
         <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={text => setPassword(text)} />
@@ -37,15 +39,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
             </TouchableOpacity>
             <Button style={[styles.guestButton, styles.guestButtonOutline]}title="Continue as Guest" onPress={pressHandler}/>
         </View>
+        
     </KeyboardAvoidingView>
-    // <View style={styles.backGround}>
-    //     <Text style={styles.text}>
-    //     You've reached the login page
-    //     </Text>
-    //     <Button title="Click to Login as Guest" onPress={pressHandler}/>
-    //     <TextInput placeholder="username"/>
-    //     <TextInput placeholder="password" />
-    // </View>
   )
 
  }
