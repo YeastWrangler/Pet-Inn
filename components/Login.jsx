@@ -1,62 +1,50 @@
 import React, { useState } from "react";
 import { colors } from "../assets/colors";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Login = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const pressHandler = () => {
-    navigation.navigate("Loggedin");
-  };
-  const handleLoginPress = () => {
-    // console.log("handle login press");
-    //need stuff
-  };
-  const handleSignUp = () => {
-    console.log("handle signup press");
-    //need stuff
-  };
+ const Login = ({navigation}) => {
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const pressHandler = () => {
+        navigation.navigate("LoggedinHome")
+    }
+    const handleLoginPress = () => {
+        console.log("handle login press")
+        //need stuff
+    }
+    const handleSignUp = () => {
+        console.log("handle signup press")
+        //need stuff
+    }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-      </View>
+       
+        <View style={styles.inputContainer}>
+        <TextInput style={styles.input}placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
+        <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={text => setPassword(text)} />
+        </View>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, styles.buttonOutline]}
-          onPress={handleSignUp}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity>
-        <Button
-          style={[styles.guestButton, styles.guestButtonOutline]}
-          title="Continue as Guest"
-          onPress={pressHandler}
-        />
-      </View>
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.buttonOutline]} onPress={handleSignUp}>
+                <Text style={styles.buttonOutlineText}>Register</Text>
+            </TouchableOpacity>
+            <Button style={[styles.guestButton, styles.guestButtonOutline]}title="Continue as Guest" onPress={pressHandler}/>
+        </View>
+        
     </KeyboardAvoidingView>
-  );
-};
+  )
+
+ }
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
