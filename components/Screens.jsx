@@ -7,6 +7,8 @@ import PostServices from "./PostServices";
 import PostPets from "./PostPets";
 import PetsList from "./PetsList";
 import IndividualOwnerListing from "./IndividualOwnerListing";
+import ServicesList from "./ServicesList";
+import IndividualSitterListing from "./IndividualSitterListing";
 
 
 export default function Screens() {
@@ -23,9 +25,9 @@ export default function Screens() {
           <Stack.Screen name="PostPets" component={PostPets} />
           <Stack.Screen name="PetsList" component={PetsList} />
       <Stack.Screen name="OwnerListing" component={IndividualOwnerListing} />
-          {/* add further screens here */}
-        </Stack.Navigator>
-      )    
-    }
-
-
+      <Stack.Screen name="ServicesList" component={ServicesList} />
+      <Stack.Screen name="SitterListing" component={IndividualSitterListing} />
+      {/* add further screens here */}
+    </Stack.Navigator>
+  );
+}

@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { colors } from "../assets/colors";
-import { OwnerListingTestData } from "../OwnerListingTestData";
+import { OwnerListingTestData } from "../test data/OwnerListingTestData";
 
 const PetsList = ({ navigation }) => {
   // const [ownerListings, setOwnerListings] = useState([]);
