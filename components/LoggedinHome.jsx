@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 const LoggedinHome = ({ navigation }) => {
-  const userName = "Shrek";
 
   const handlePetsPress = () => {
     navigation.navigate("PetsList");
@@ -22,12 +21,11 @@ const LoggedinHome = ({ navigation }) => {
   };
 
   const handlePostServices = () => {
-    navigation.navigate("");
+    navigation.navigate("PostServices");
   };
 
-
   const handlePostPet = () => {
-    navigation.navigate("");
+    navigation.navigate("PostPets");
   };
 
   return (
@@ -66,7 +64,7 @@ const LoggedinHome = ({ navigation }) => {
       </View>
       <View style={styles.secondButtonContainer}>
         <TouchableOpacity style={styles.secondButton} onPress={handlePostPet}>
-          <Text style={styles.secondButtonText}>Post for Pet Help</Text>
+          <Text style={styles.secondButtonText}>Needing Pet Help?</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.secondButtonContainer}>
@@ -74,7 +72,7 @@ const LoggedinHome = ({ navigation }) => {
           style={styles.secondButton}
           onPress={handlePostServices}
         >
-          <Text style={styles.secondButtonText}>Post for Pet Services</Text>
+          <Text style={styles.secondButtonText}>Offering Services?</Text>
         </TouchableOpacity>
       </View>
       <Button title="postings" />
