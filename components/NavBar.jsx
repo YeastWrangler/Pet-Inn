@@ -14,6 +14,7 @@ const NavBar = () => {
     
     <Tab.Navigator
     initialRouteName='Home'
+
     screenOptions={({route}) => ({
         tabBarIcon: () => {
             let iconName;
@@ -32,12 +33,15 @@ const NavBar = () => {
             }
 
             return <Ionicons name={iconName} size={25} color="gray"/>
-        }
+        }, 
+        
     })}>
+        <Tab.Group screenOptions={{ headerShown: false }} >
             <Tab.Screen name="Home" component={Screens}/>
             <Tab.Screen name="Inbox" component={ServicesList} options={{tabBarBadge: 2}}/>
             <Tab.Screen name="Wishlist" component={PetsList}/>
             <Tab.Screen name="Profile" component={Login}/>
+            </Tab.Group>
             </Tab.Navigator>
             
   )

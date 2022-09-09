@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity} from 'react-native';
+import {Text,} from 'react-native';
 
 const ServicesList = () => {
   return (
