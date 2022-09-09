@@ -8,7 +8,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import { OwnerListingTestData } from "../OwnerListingTestData";
+import { OwnerListingTestData } from "../test data/OwnerListingTestData";
 import Slideshow from "react-native-image-slider-show";
 
 const IndividualOwnerListing = ({ navigation, route }) => {

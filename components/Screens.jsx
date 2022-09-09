@@ -5,6 +5,8 @@ import Login from "./Login";
 import LoggedinHome from "./LoggedinHome";
 import PetsList from "./PetsList";
 import IndividualOwnerListing from "./IndividualOwnerListing";
+import ServicesList from "./ServicesList";
+import IndividualSitterListing from "./IndividualSitterListing";
 
 export default function Screens() {
   // syntax to move to new screen is navigation.navigate("screenname"). navigation needs to be given to component as props
@@ -20,6 +22,8 @@ export default function Screens() {
       <Stack.Screen name="LoggedinHome" component={LoggedinHome} />
       <Stack.Screen name="PetsList" component={PetsList} />
       <Stack.Screen name="OwnerListing" component={IndividualOwnerListing} />
+      <Stack.Screen name="ServicesList" component={ServicesList} />
+      <Stack.Screen name="SitterListing" component={IndividualSitterListing} />
       {/* add further screens here */}
     </Stack.Navigator>
   );
