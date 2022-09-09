@@ -16,7 +16,6 @@ const LoggedinHome = ({ navigation }) => {
     navigation.navigate("PetsList");
   };
 
-
   const handleServicesPress = () => {
     navigation.navigate("ServicesList");
   };
@@ -24,7 +23,6 @@ const LoggedinHome = ({ navigation }) => {
   const handlePostServices = () => {
     navigation.navigate("");
   };
-
 
   const handlePostPet = () => {
     navigation.navigate("");
