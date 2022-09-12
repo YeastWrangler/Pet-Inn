@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { colors } from "../assets/colors";
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from "react-native";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
-
+import userContext from "../context/context";
+import userLogin from "../api"
 
  const Login = ({navigation}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const {currUser, setCurrUser} = useContext(userContext)
+
+    console.log("current user:",currUser, setCurrUser)
 
     const pressHandler = () => {
         navigation.navigate("LoggedinHome")
     }
     const handleLoginPress = () => {
-        console.log("handle login press")
+        // console.log("handle login press")
+        // setCurrUser({email:email, password:password})
+              userLogin(currUser)
+            //navigation.navigate("LoggedinHome")
+              
         //need stuff
     }
     const handleSignUp = () => {

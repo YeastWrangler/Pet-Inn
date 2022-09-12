@@ -3,30 +3,65 @@ import { colors } from '../assets/colors';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView, TouchableOpacity } from "react-native";
 import { TextInput } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
+import { getListingByOwner, loginUser, postListingByOwner } from '../api';
+import { useEffect, useContext } from 'react';
+import userContext from '../context/context';
 
 
-
-const handleLoginPress = () => {
-console.log("pressed")
-}
 
 
 
 const PostPets = () => {
-    const [pet, setPet] = useState([])
+    const {currUser} = useContext(userContext)
 
+    const [pet, setPet] = useState([])
+    const [username, setUsername] = useState("Alex")
+   const [title, setTitle] = useState("")
+   const [toDate, setToDate] = useState("")
+   const [fromDate, setFromDate] = useState("")
+   const [location, setLocation] = useState("")
+  const [info, setInfo] = useState("")
+  const [payment, setPayment] = useState(0)
+  const [image_urls, setImage_urls] = useState("")
+
+ //const dataTest = getListingByOwner().then((data) => {
+    //    return data
+    //    })
+    let newListing = {
+         username: username,
+            title:title,
+            pets:[pet],
+           dates:{from:fromDate,to:toDate},
+           location: location,
+        additional_info:info,
+           payment: parseInt(payment),
+           image_urls: [image_urls]
+          }
+          console.log("new listing", newListing)
+
+   const handlePress = () => {
+    loginUser(currUser).then((data) => {
+       console.log("logged in:", currUser)
+   })
+   postListingByOwner(newListing).then((data) => {
+   console.log("post listing", data)
+   })
+}
 
   return (
     <SafeAreaView>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
        
         <View style={styles.inputContainer}>
-        <Text style={styles.header}>Post About Your Pets</Text>
-    <TextInput style={styles.input}placeholder="Title of Post"  />
-     <TextInput style={styles.input} placeholder="Info About Your Pets" />
-     <TextInput style={styles.input} placeholder="Dates" />
-     <TextInput style={styles.input} placeholder="Location" />
-     <TextInput style={styles.input} placeholder="House Information" />
+        
+             <Text style={styles.header} >Post About Your Pets</Text>
+     <TextInput value={title} style={styles.input} onChangeText={setTitle} placeholder="Title of Post"  />
+     <TextInput style={styles.input} onChangeText={setInfo} placeholder="Info About Your Pets" />
+     <TextInput style={styles.input} onChangeText={setToDate}  placeholder="Dates To:" />
+     <TextInput style={styles.input} onChangeText={setFromDate}  placeholder="Dates From:" />
+     <TextInput style={styles.input} onChangeText={setLocation} placeholder="Location" />
+    <TextInput style={styles.input} keyboardType="decimal-pad" onChangeText={setPayment} placeholder="Payment" />
+     <TextInput style={styles.input} onChangeText={setImage_urls} placeholder="Upload Your Photo URLs" />
      <View style={styles.inputContainer}>
      <Picker
           selectedValue={pet}
@@ -44,7 +79,7 @@ const PostPets = () => {
         </View>
 
         <View  style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
                 <Text style={styles.buttonText}>Upload Your Photos Here</Text>
             </TouchableOpacity>
             </View>
@@ -89,7 +124,7 @@ const styles = StyleSheet.create({
     
     inputContainer: {
       width: "80%",
-      margin: 40
+      margin: 30
     },
     input: {
       backgroundColor: "white",
@@ -97,6 +132,8 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       borderRadius: 10,
       marginTop: 5,
+      fontSize:20,
+      color: "black"
     },
     buttonContainer: {
         width: "100%",
