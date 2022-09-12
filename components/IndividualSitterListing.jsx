@@ -83,6 +83,7 @@ const IndividualSitterListing = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    backgroundColor:"pink"
   },
   listingTitle: {
     fontSize: 20,

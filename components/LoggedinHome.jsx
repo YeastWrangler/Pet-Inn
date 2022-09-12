@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -38,7 +37,7 @@ const LoggedinHome = ({ navigation }) => {
         />
       </View>
       <Text style={styles.text}>You Are Now Logged in</Text>
-      <Text>Lots of different posts:</Text>
+     
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePetsPress}>
           <Text style={styles.buttonText}>Pet Sitting Posts</Text>
@@ -74,7 +73,7 @@ const LoggedinHome = ({ navigation }) => {
           <Text style={styles.secondButtonText}>Offering Services?</Text>
         </TouchableOpacity>
       </View>
-      <Button title="postings" />
+    
     </View>
   );
 };
@@ -95,21 +94,27 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   postImage: {
-    width: "60%",
+    width: "70%",
     height: "60%",
     borderRadius: 10,
+    borderColor: "white",
+    borderWidth: 1
   },
 
   backGround: {
     flex: 1,
     backgroundColor: colors.mainColor,
+   alignItems:"center"
   },
   text: {
     color: "white",
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight:"600",
     alignContent: "center",
-    margin: 20,
-    marginLeft: 100,
+    margin: 10,
+    textShadowColor:"black",
+    textShadowRadius:10
+    
   },
   container: {
     width: "100%",
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   buttonContainer: {
-    width: "80%",
+    width: "70%",
     height: "25%",
     justifyContent: "center",
     alignItems: "center",
@@ -134,7 +139,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 20,
+    marginBottom: 10
   },
   secondButtonContainer: {
     width: "70%",
