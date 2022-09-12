@@ -1,19 +1,22 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  Pressable,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
 import { colors } from "../assets/colors";
-import { sitterListingTestData } from "../test data/sitterListingTestData";
-
+import { getSitterListings } from "../dbCalls/sitterListing";
 
 const ServicesList = ({ navigation }) => {
+  const [sitterListings, setSitterListings] = useState([]);
+
+  useEffect(() => {
+    getSitterListings()
+      .then(({ sitterListings }) => {
+        setSitterListings(sitterListings);
+      })
+      .catch((err) => {
+        console.log(err);
+        //need to error handle
+      });
+  }, []);
+
   return (
     <View>
       <View style={styles.headerContainer}>
@@ -22,11 +25,8 @@ const ServicesList = ({ navigation }) => {
 
       <FlatList
         contentContainerStyle={{ paddingBottom: 50 }}
-        keyExtractor={(item) =>
-          item._id
-        } /*----> change'id' for a unique id from our data table.
-        This tell Flat list not to look for key property but for our specified property instead */
-        data={sitterListingTestData}
+        keyExtractor={(item) => item._id}
+        data={sitterListings}
         //need to destructure item as FlatList has created an object with multiple keys
         renderItem={({ item }) => {
           return (
