@@ -6,6 +6,7 @@ import PetsList from './PetsList';
 import ServicesList from './ServicesList';
 
 import Screens from './Screens';
+import UserProfile from './UserProfile';
 
 const NavBar = () => {
 
@@ -40,7 +41,7 @@ const NavBar = () => {
             <Tab.Screen name="Home" component={Screens}/>
             <Tab.Screen name="Inbox" component={ServicesList} options={{tabBarBadge: 2}}/>
             <Tab.Screen name="Wishlist" component={PetsList}/>
-            <Tab.Screen name="Profile" component={Login}/>
+            <Tab.Screen name="Profile" component={UserProfile}/>
             </Tab.Group>
             </Tab.Navigator>
             

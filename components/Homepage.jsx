@@ -15,7 +15,7 @@ const pressHandler = () => {
           <Image style={ styles.logo} source={{uri: "https://images-platform.99static.com/OIRRT4xa5hwUOYh3r9nQoxbDf_w=/0x0:2000x2000/500x500/top/smart/99designs-contests-attachments/101/101748/attachment_101748619"}}/>
           </View>
           <View style={styles.loginContainer}>
-          <Button style={styles.login} title="login here" onPress={pressHandler} />
+          <Button style={styles.login} title="Login Here →" onPress={pressHandler} />
           </View>
         
           </ImageBackground>)
@@ -36,26 +36,27 @@ const styles = StyleSheet.create({
       },
     
     logo: {
-      width: 100,
-      height: 100,
+      width: 120,
+      height: 120,
      
 
     },
 
     logoBox: {
-      height:100,
-      width:100,
+      height:120,
+      width:120,
       overflow:"hidden",
       backgroundColor: "white",
       textAlign:"center",
       border:"solid",
       position: "absolute",
-      top:50,
+      top:40,
       //in order to center logo box the marginLeft has to be 1/2 of the visible width of the element(including border,padding etc.)
       left: "50%",
-      marginLeft: -51,
+      marginLeft: -59,
       borderColor: colors.mainColor,
-      borderWidth: 2
+      borderWidth: 2,
+      borderRadius:75
     },
 
     login: {
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     loginContainer: {
       backgroundColor: colors.mainColor,
       width: "100%",
-      height: "10%"
+      height: "7%"
     }
 })
 
