@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { colors } from "../assets/colors";
 import { getSitterListings } from "../dbCalls/sitterListing";
 
 const ServicesList = ({ navigation }) => {
   const [sitterListings, setSitterListings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getSitterListings()
       .then(({ sitterListings }) => {
         setSitterListings(sitterListings);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
         //need to error handle
       });
   }, []);
+
+  if (isLoading)
+    return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 
   return (
     <View>
@@ -108,6 +120,9 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: 20,
+  },
+  loadingIndicator: {
+    flex: 1,
   },
 });
 

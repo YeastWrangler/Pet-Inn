@@ -6,23 +6,29 @@ import {
   View,
   Image,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { colors } from "../assets/colors";
 import { getOwnerListings } from "../dbCalls/ownerListing";
 
 const PetsList = ({ navigation }) => {
   const [ownerListings, setOwnerListings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getOwnerListings()
       .then(({ ownerListing }) => {
         setOwnerListings(ownerListing);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
         //need to error handle
       });
   }, []);
+
+  if (isLoading)
+    return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 
   return (
     <View>
@@ -103,6 +109,9 @@ const styles = StyleSheet.create({
   },
   location: {
     fontWeight: "700",
+  },
+  loadingIndicator: {
+    flex: 1,
   },
 });
 
