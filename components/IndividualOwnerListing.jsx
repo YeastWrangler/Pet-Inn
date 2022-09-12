@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   StyleSheet,
   FlatList,
@@ -7,57 +7,56 @@ import {
   Image,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
-import { OwnerListingTestData } from "../test data/OwnerListingTestData";
+
 import Slideshow from "react-native-image-slider-show";
+import { getOneOwnerListing } from "../dbCalls/ownerListing";
+import moment from "moment"
 
 const IndividualOwnerListing = ({ navigation, route }) => {
   const { id } = route.params;
-  // console.log(id);
-  const testData = OwnerListingTestData;
+  const [ownerListing, setOwnerListing] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredData = testData.filter((element) => element._id === id);
-  // console.log(filteredData);
-
-  // const data = [
-  //   {
-  //     key: "1",
-  //     location: "Birmingham",
-  //     images: [
-  //       "https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg",
-  //       "https://pdi-portal.s3.eu-west-2.amazonaws.com/a5730ce7-e7ee-46b8-b354-3de2bde4aea1/Sale-of-immovable-Property.jpg",
-  //     ],
-  //     petType: "dog",
-  //     other: "must take dog for 2 walks every day",
-  //     rating: 5,
-  //     payment: "Yes",
-  //     dates: "5th Oct 2022",
-  //   },
-  // ];
+  useEffect(() => {
+    getOneOwnerListing(id)
+      .then(({ ownerListing }) => {
+        setOwnerListing(ownerListing);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        //need to error handle
+      });
+  }, []);
+  
+  if (isLoading)
+    return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.listingTitle}>{filteredData[0].title}</Text>
-        <Text style={styles.content}>{filteredData[0].location}</Text>
+        <Text style={styles.listingTitle}>{ownerListing.title}</Text>
+        <Text style={styles.content}>{ownerListing.location}</Text>
         <View style={styles.datesContainer}>
           <View style={styles.infoContainer}>
             <Text style={styles.heading}>Date From: </Text>
-            <Text style={styles.content}>{filteredData[0].dates.from}</Text>
+            <Text style={styles.content}>{moment(ownerListing.from_date).format("MMM Do, YYYY")}</Text>
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.heading}>Date To: </Text>
-            <Text style={styles.content}>{filteredData[0].dates.to}</Text>
+            <Text style={styles.content}>{moment(ownerListing.to_date).format("MMM Do, YYYY")}</Text>
           </View>
         </View>
 
-        {/* <Text>{filteredData[0].rating}</Text> */}
+        {/* <Text>{ownerListing.rating}</Text> */}
 
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>Pet(s): </Text>
           <Text style={styles.content}>
-            {filteredData[0].pets.map((pet, index) => {
-              if (index === filteredData[0].pets.length - 1) {
+            {ownerListing.pets.map((pet, index) => {
+              if (index === ownerListing.pets.length - 1) {
                 return pet;
               } else {
                 return `${pet}, `;
@@ -68,28 +67,28 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 
         <Slideshow
           height={200}
-          dataSource={filteredData[0].image_urls.map((photo) => {
+          dataSource={ownerListing.image_urls.map((photo) => {
             return { url: photo };
           })}
         />
         <Text style={styles.payment}>
-          {filteredData[0].payment === 0
+          {ownerListing.payment === 0
             ? "Free"
-            : `£${filteredData[0].payment}`}
+            : `£${ownerListing.payment}`}
         </Text>
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>Additional Info: </Text>
-          <Text style={styles.content}>{filteredData[0].additional_info}</Text>
+          <Text style={styles.content}>{ownerListing.additional_info}</Text>
         </View>
 
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>Date Added: </Text>
-          <Text style={styles.content}>{filteredData[0].date_added}</Text>
+          <Text style={styles.content}>{moment(ownerListing.date_added).format("MMM Do, YYYY")}</Text>
         </View>
 
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>Posted By: </Text>
-          <Text style={styles.content}>{filteredData[0].username}</Text>
+          <Text style={styles.content}>{ownerListing.username}</Text>
         </View>
 
         <Pressable
