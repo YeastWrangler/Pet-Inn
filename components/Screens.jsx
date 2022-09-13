@@ -27,7 +27,9 @@ export default function Screens() {
       <Stack.Screen name="OwnerListing" component={IndividualOwnerListing} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="SitterListing" component={IndividualSitterListing} />
-      {/* add further screens here */}
-    </Stack.Navigator>
-  );
-}
+          {/* add further screens here */}
+        </Stack.Navigator>
+      )    
+    }
+
+
