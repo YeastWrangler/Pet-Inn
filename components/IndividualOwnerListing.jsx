@@ -8,22 +8,35 @@ import {
   ScrollView,
   Pressable,
   ActivityIndicator,
+  Linking
 } from "react-native";
 
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment"
+import { getUserInfo } from "../dbCalls/User";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
-  const { id } = route.params;
+  const { id, username } = route.params;
+  console.log(route.params);
   const [ownerListing, setOwnerListing] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState("")
 
   useEffect(() => {
     getOneOwnerListing(id)
       .then(({ ownerListing }) => {
         setOwnerListing(ownerListing);
         setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        //need to error handle
+      });
+
+      getUserInfo(username).then(({ email }) => {
+        setUserEmail(email);
+        // setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -42,11 +55,11 @@ const IndividualOwnerListing = ({ navigation, route }) => {
         <View style={styles.datesContainer}>
           <View style={styles.infoContainer}>
             <Text style={styles.heading}>Date From: </Text>
-            <Text style={styles.content}>{moment(ownerListing.from_date).format("MMM Do, YYYY")}</Text>
+            <Text style={styles.content}>{moment(ownerListing.date_from).format("MMM Do, YYYY")}</Text>
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.heading}>Date To: </Text>
-            <Text style={styles.content}>{moment(ownerListing.to_date).format("MMM Do, YYYY")}</Text>
+            <Text style={styles.content}>{moment(ownerListing.date_to).format("MMM Do, YYYY")}</Text>
           </View>
         </View>
 
@@ -94,8 +107,8 @@ const IndividualOwnerListing = ({ navigation, route }) => {
         <Pressable
           style={styles.contactButton}
           onPress={() => {
-            console.log("open chat clicked");
-            //needs to open chat window/page when clicked
+            console.log("Contact Email Clicked");
+            Linking.openURL(`mailto:${userEmail}?subject=Pet Inn Query`)
           }}
         >
           <Text style={styles.contactButtonText}>Contact Owner</Text>

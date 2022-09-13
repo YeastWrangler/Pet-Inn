@@ -9,10 +9,12 @@ import {
 } from "react-native";
 import { colors } from "../assets/colors";
 import { getSitterListings } from "../dbCalls/sitterListing";
+import moment from "moment"
 
 const ServicesList = ({ navigation }) => {
   const [sitterListings, setSitterListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
     getSitterListings()
@@ -69,7 +71,7 @@ const ServicesList = ({ navigation }) => {
                 </View>
 
                 <Text style={styles.content}>
-                  {item.dates.from} to {item.dates.to}
+                {moment(item.date_from).format("MMM Do, YYYY")} to {moment(item.date_to).format("MMM Do, YYYY")}
                 </Text>
 
                 <Text style={[styles.payment, styles.content]}>
