@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   FlatList,
@@ -63,41 +63,41 @@ const IndividualOwnerListing = ({ navigation, route }) => {
           </View>
         </View>
 
-        {/* <Text>{ownerListing.rating}</Text> */}
+				{/* <Text>{ownerListing.rating}</Text> */}
 
-        <View style={styles.infoContainer}>
-          <Text style={styles.heading}>Pet(s): </Text>
-          <Text style={styles.content}>
-            {ownerListing.pets.map((pet, index) => {
-              if (index === ownerListing.pets.length - 1) {
-                return pet;
-              } else {
-                return `${pet}, `;
-              }
-            })}
-          </Text>
-        </View>
+				<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Pet(s): </Text>
+					<Text style={styles.content}>
+						{ownerListing.pets.map((pet, index) => {
+							if (index === ownerListing.pets.length - 1) {
+								return pet;
+							} else {
+								return `${pet}, `;
+							}
+						})}
+					</Text>
+				</View>
 
-        <Slideshow
-          height={200}
-          dataSource={ownerListing.image_urls.map((photo) => {
-            return { url: photo };
-          })}
-        />
-        <Text style={styles.payment}>
-          {ownerListing.payment === 0
-            ? "Free"
-            : `£${ownerListing.payment}`}
-        </Text>
-        <View style={styles.infoContainer}>
-          <Text style={styles.heading}>Additional Info: </Text>
-          <Text style={styles.content}>{ownerListing.additional_info}</Text>
-        </View>
+				<Slideshow
+					height={200}
+					dataSource={ownerListing.image_urls.map((photo) => {
+						return { url: photo };
+					})}
+				/>
+				<Text style={styles.payment}>
+					{ownerListing.payment === 0 ? "Free" : `£${ownerListing.payment}`}
+				</Text>
+				<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Additional Info: </Text>
+					<Text style={styles.content}>{ownerListing.additional_info}</Text>
+				</View>
 
-        <View style={styles.infoContainer}>
-          <Text style={styles.heading}>Date Added: </Text>
-          <Text style={styles.content}>{moment(ownerListing.date_added).format("MMM Do, YYYY")}</Text>
-        </View>
+				<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Date Added: </Text>
+					<Text style={styles.content}>
+						{moment(ownerListing.date_added).format("MMM Do, YYYY")}
+					</Text>
+				</View>
 
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>Posted By: </Text>
@@ -119,56 +119,56 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor:"pink"
-  },
-  listingTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    margin: 10,
-  },
-  datesContainer: {
-    flexDirection: "row",
-  },
-  featuredImage: {
-    width: 150,
-    height: undefined,
-    aspectRatio: 1,
-  },
-  secondaryImage: {
-    width: 100,
-    height: undefined,
-    aspectRatio: 1,
-  },
-  infoContainer: {
-    flexDirection: "row",
-    margin: 10,
-    alignItems: "center",
-  },
-  heading: {
-    fontWeight: "700",
-  },
-  content: {
-    fontSize: 16,
-  },
-  payment: {
-    fontSize: 20,
-    fontWeight: "700",
-    margin: 10,
-  },
-  contactButton: {
-    margin: 10,
-    padding: 6,
-    backgroundColor: "blue",
-    borderRadius: 6,
-    color: "white",
-  },
-  contactButtonText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "700",
-  },
+	container: {
+		alignItems: "center",
+		backgroundColor: "pink",
+	},
+	listingTitle: {
+		fontSize: 20,
+		fontWeight: "700",
+		margin: 10,
+	},
+	datesContainer: {
+		flexDirection: "row",
+	},
+	featuredImage: {
+		width: 150,
+		height: undefined,
+		aspectRatio: 1,
+	},
+	secondaryImage: {
+		width: 100,
+		height: undefined,
+		aspectRatio: 1,
+	},
+	infoContainer: {
+		flexDirection: "row",
+		margin: 10,
+		alignItems: "center",
+	},
+	heading: {
+		fontWeight: "700",
+	},
+	content: {
+		fontSize: 16,
+	},
+	payment: {
+		fontSize: 20,
+		fontWeight: "700",
+		margin: 10,
+	},
+	contactButton: {
+		margin: 10,
+		padding: 6,
+		backgroundColor: "blue",
+		borderRadius: 6,
+		color: "white",
+	},
+	contactButtonText: {
+		color: "white",
+		fontSize: 20,
+		fontWeight: "700",
+	},
 });
 
 export default IndividualOwnerListing;

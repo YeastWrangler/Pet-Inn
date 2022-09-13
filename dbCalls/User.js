@@ -8,6 +8,16 @@ export const getUserInfo = (username) => {
     });
 };
 
-async function addUser(userdata) {}
+export const loginUser = (user) => {
+  console.log(user);
+  return axios
+    .post(`https://busy-ruby-narwhal-kit.cyclic.app/api/users/login`, user)
+    .then(({ data }) => {
+      console.log("logged in now:", data);
+      return data;
+    });
+};
 
-async function deleteUser(id) {}
+export const deleteUser = (username) => {};
+
+export const addUser = (username) => {};
