@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { colors } from "../assets/colors";
 import { getOwnerListings } from "../dbCalls/ownerListing";
+import moment from "moment"
 
 const PetsList = ({ navigation }) => {
   const [ownerListings, setOwnerListings] = useState([]);
@@ -59,7 +60,7 @@ const PetsList = ({ navigation }) => {
                 />
                 <Text style={styles.location}>{item.location}</Text>
                 <Text>
-                  {item.dates.from} to {item.dates.to}
+                  {moment(item.from_date).format("MMM Do, YYYY")} to {moment(item.to_date).format("MMM Do, YYYY")}
                 </Text>
                 <Text>
                   {item.pets.map((pet, index) => {
