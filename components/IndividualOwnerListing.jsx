@@ -22,7 +22,6 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 	const { id, username } = route.params;
 	const [ownerListing, setOwnerListing] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [userEmail, setUserEmail] = useState("");
 	const { currUser } = useContext(userContext);
 
 	useEffect(() => {
