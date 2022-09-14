@@ -16,6 +16,18 @@ export const loginUser = (user) => {
     });
 };
 
+export const registerUser = (registerData) => {
+  return axios
+    .post(
+      `https://busy-ruby-narwhal-kit.cyclic.app/api/users/signup`,
+      registerData
+    )
+    .then((res) => {
+      // console.log(Object.keys(res));
+      return res.status;
+    });
+};
+
 export const deleteUser = (username) => {};
 
 export const addUser = (username) => {};
