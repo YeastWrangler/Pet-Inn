@@ -9,27 +9,26 @@ import PetsList from "./PetsList";
 import IndividualOwnerListing from "./IndividualOwnerListing";
 import ServicesList from "./ServicesList";
 import IndividualSitterListing from "./IndividualSitterListing";
-
+import CreateUser from "./CreateUser";
 
 export default function Screens() {
   // syntax to move to new screen is navigation.navigate("screenname"). navigation needs to be given to component as props
-    const Stack = createNativeStackNavigator();
-    
-  //  to remove header thing, add this to Stack.Navigator: screenOptions={{ title: "" , headerStyle: {backgroundColor:"white"} }} 
-      return (
-        <Stack.Navigator initialRouteName="Homepage" >
-          <Stack.Screen name="Homepage" component={Homepage} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="LoggedinHome" component={LoggedinHome} />
-          <Stack.Screen name="PostServices" component={PostServices} />
-          <Stack.Screen name="PostPets" component={PostPets} />
-          <Stack.Screen name="PetsList" component={PetsList} />
+  const Stack = createNativeStackNavigator();
+
+  //  to remove header thing, add this to Stack.Navigator: screenOptions={{ title: "" , headerStyle: {backgroundColor:"white"} }}
+  return (
+    <Stack.Navigator initialRouteName="Homepage">
+      <Stack.Screen name="Homepage" component={Homepage} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="LoggedinHome" component={LoggedinHome} />
+      <Stack.Screen name="PostServices" component={PostServices} />
+      <Stack.Screen name="PostPets" component={PostPets} />
+      <Stack.Screen name="PetsList" component={PetsList} />
       <Stack.Screen name="OwnerListing" component={IndividualOwnerListing} />
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="SitterListing" component={IndividualSitterListing} />
-          {/* add further screens here */}
-        </Stack.Navigator>
-      )    
-    }
-
-
+      <Stack.Screen name="CreateUser" component={CreateUser} />
+      {/* add further screens here */}
+    </Stack.Navigator>
+  );
+}

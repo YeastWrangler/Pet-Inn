@@ -32,8 +32,7 @@ const Login = ({ navigation }) => {
     //need stuff
   };
   const handleSignUp = () => {
-    console.log("handle signup press");
-    //need stuff
+    navigation.navigate("CreateUser");
   };
 
   return (
@@ -64,11 +63,12 @@ const Login = ({ navigation }) => {
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
-        <Button
-          style={[styles.guestButton, styles.guestButtonOutline]}
-          title="Continue as Guest"
+        <TouchableOpacity
+          style={[styles.button, styles.buttonOutline]}
           onPress={pressHandler}
-        />
+        >
+          <Text style={styles.buttonOutlineText}>Continue as Guest</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     borderColor: colors.buttonColor,
   },
   guestButton: {
+    // marginTop: 50,
     backgroundColor: colors.mainColor,
     width: "100%", //adjust size so buttons match in width
     padding: 20,
