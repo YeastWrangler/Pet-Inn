@@ -7,6 +7,7 @@ import {
 	Button,
 	TextInput,
 	TouchableOpacity,
+	Alert
 } from "react-native";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 import userContext from "../context/context";
@@ -26,6 +27,7 @@ const Login = ({ navigation }) => {
 		const loginData = { email: email, password: password };
 		loginUser(loginData).then((data) => {
 			setCurrUser(data.user);
+			Alert.alert(`You're now logged in as ${data.user.username}`)
 			navigation.navigate("LoggedinHome");
 		});
 	};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { colors } from "../assets/colors";
 import {
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import userContext from "../context/context";
 
 const LoggedinHome = ({ navigation }) => {
 
@@ -26,17 +27,12 @@ const LoggedinHome = ({ navigation }) => {
     navigation.navigate("PostPets");
   };
 
+  const { currUser } = useContext(userContext);
+
   return (
     <View style={styles.backGround}>
-      <View style={styles.avatarContainer}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://i.insider.com/60817ec5354dde0018c06960?width=1300&format=jpeg&auto=webp",
-          }}
-        />
-      </View>
-      <Text style={styles.text}>You Are Now Logged in</Text>
+   
+      <Text style={styles.text}> Welcome Home: {currUser.username} </Text>
      
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePetsPress}>
@@ -112,8 +108,9 @@ const styles = StyleSheet.create({
     fontWeight:"600",
     alignContent: "center",
     margin: 10,
-    textShadowColor:"black",
-    textShadowRadius:10
+    marginTop: 20,
+    textShadowColor:"red",
+    textShadowRadius:14
     
   },
   container: {
