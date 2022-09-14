@@ -10,6 +10,8 @@ import IndividualOwnerListing from "./IndividualOwnerListing";
 import ServicesList from "./ServicesList";
 import IndividualSitterListing from "./IndividualSitterListing";
 import CreateUser from "./CreateUser";
+import WatchList from "./Watchlist";
+import Reviews from "./Reviews";
 
 export default function Screens() {
   // syntax to move to new screen is navigation.navigate("screenname"). navigation needs to be given to component as props
@@ -28,6 +30,8 @@ export default function Screens() {
       <Stack.Screen name="ServicesList" component={ServicesList} />
       <Stack.Screen name="SitterListing" component={IndividualSitterListing} />
       <Stack.Screen name="CreateUser" component={CreateUser} />
+      <Stack.Screen name="WatchList" component={WatchList} />
+      <Stack.Screen name="Reviews" component={Reviews} />
       {/* add further screens here */}
     </Stack.Navigator>
   );
