@@ -26,10 +26,9 @@ const Login = ({ navigation }) => {
 		// console.log("handle login press")
 		// setCurrUser({email:email, password:password})
 		const loginData = { email: email, password: password };
-		loginUser(loginData).then(
-			setCurrUser(loginData),
-			navigation.navigate("LoggedinHome")
-		);
+		loginUser(loginData).then((data) => {
+			setCurrUser(data.user), navigation.navigate("LoggedinHome");
+		});
 
 		//need stuff
 	};

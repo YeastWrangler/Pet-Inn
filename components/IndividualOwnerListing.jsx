@@ -90,11 +90,18 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 					</Text>
 				</View>
 
-				<View style={styles.infoContainer}>
-					<Text style={styles.heading}>Posted By: </Text>
-					<Text style={styles.content}>{ownerListing.username}</Text>
-				</View>
-
+				<Pressable
+					style={styles.contactButton}
+					onPress={() => {
+						navigation.navigate("Reviews", { user: ownerListing.username });
+						//needs to open chat window/page when clicked
+					}}
+				>
+					<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{ownerListing.username}</Text>
+					</View>
+				</Pressable>
 				<Pressable
 					style={styles.contactButton}
 					onPress={() => {
