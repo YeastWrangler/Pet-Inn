@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	StyleSheet,
 	FlatList,
@@ -8,22 +8,38 @@ import {
 	ScrollView,
 	Pressable,
 	ActivityIndicator,
+	Linking,
 } from "react-native";
 
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
+import { getUserInfo } from "../dbCalls/User";
+import userContext from "../context/context";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
-	const { id } = route.params;
+	const { id, username } = route.params;
 	const [ownerListing, setOwnerListing] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [userEmail, setUserEmail] = useState("");
+	const { currUser } = useContext(userContext);
 
 	useEffect(() => {
 		getOneOwnerListing(id)
 			.then(({ ownerListing }) => {
 				setOwnerListing(ownerListing);
 				setIsLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				//need to error handle
+			});
+		console.log(username, currUser);
+		getUserInfo(username)
+			.then((data) => {
+				console.log(data);
+				// setUserEmail(email);
+				// setIsLoading(false);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -105,8 +121,9 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 				<Pressable
 					style={styles.contactButton}
 					onPress={() => {
-						console.log("open chat clicked");
-						//needs to open chat window/page when clicked
+						Linking.openURL(
+							`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`
+						);
 					}}
 				>
 					<Text style={styles.contactButtonText}>Contact Owner</Text>
@@ -114,6 +131,23 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 			</View>
 		</ScrollView>
 	);
+	// <View style={styles.infoContainer}>
+	//   <Text style={styles.heading}>Posted By: </Text>
+	//   <Text style={styles.content}>{ownerListing.username}</Text>
+	// </View>
+
+	// <Pressable
+	//   style={styles.contactButton}
+	//   onPress={() => {
+	//     Linking.openURL(`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`)
+	//   }}
+	// >
+	//   <Text style={styles.contactButtonText}>Contact Owner</Text>
+	// </Pressable>
+
+	//   </View>
+	// </ScrollView>
+	//   );
 };
 
 const styles = StyleSheet.create({

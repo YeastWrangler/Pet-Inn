@@ -47,7 +47,7 @@ const PetsList = ({ navigation }) => {
             <View style={styles.singleListing}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate("OwnerListing", { id: item._id });
+                  navigation.navigate("OwnerListing", { id: item._id, username: item.username });
                 }}
                 style={styles.centerContent}
               >
@@ -60,7 +60,7 @@ const PetsList = ({ navigation }) => {
                 />
                 <Text style={styles.location}>{item.location}</Text>
                 <Text>
-                  {moment(item.from_date).format("MMM Do, YYYY")} to {moment(item.to_date).format("MMM Do, YYYY")}
+                  {moment(item.date_from).format("MMM Do, YYYY")} to {moment(item.date_to).format("MMM Do, YYYY")}
                 </Text>
                 <Text>
                   {item.pets.map((pet, index) => {
