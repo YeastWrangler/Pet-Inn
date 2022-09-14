@@ -6,6 +6,7 @@ import {
 	FlatList,
 	Pressable,
 	ActivityIndicator,
+	Image
 } from "react-native";
 import { colors } from "../assets/colors";
 import { getSitterListings } from "../dbCalls/sitterListing";
@@ -50,6 +51,8 @@ const ServicesList = ({ navigation }) => {
 								}}
 								style={styles.centerContent}
 							>
+								 
+                
 								<Text style={[styles.location, styles.content]}>
 									{item.location}
 								</Text>
@@ -90,18 +93,22 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.buttonColor,
 	},
 	pageHeader: {
-		margin: 10,
-		fontSize: 16,
+		margin: 15,
+		fontSize: 18,
 		fontWeight: "900",
 		color: "white",
 		textAlign: "center",
 	},
+	
 	singleListing: {
 		backgroundColor: "pink",
-		marginTop: 10,
+		marginTop: 20,
 		padding: 16,
 		fontSize: 16,
 		alignItems: "center",
+		borderRadius: 15,
+   		width: "90%",
+    	alignSelf: "center",
 		// paddingBottom: 50,
 	},
 	centerContent: {

@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
-import { getListingByOwner, loginUser, postListingByOwner } from "../api";
 import { useEffect, useContext } from "react";
 import userContext from "../context/context";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { postOwnerListing } from "../dbCalls/ownerListing";
 
 const PostPets = () => {
 
@@ -43,13 +43,12 @@ const PostPets = () => {
 		payment: parseInt(payment),
 		image_urls: [image_urls],
 	};
-	console.log("new listing", newListing);
 
 	const handlePress = () => {
 		// loginUser(currUser).then((data) => {
 		// 	//console.log("logged in:", currUser);
 		// });
-		postListingByOwner(newListing).then((data) => {
+		postOwnerListing(newListing).then((data) => {
 			Alert.alert("Your Post Was Successful", "You Deserve a Treat!")
 			
 		}).catch((err) => {
@@ -106,9 +105,9 @@ const PostPets = () => {
 						placeholder="Upload Your Photo URLs"
 					/>
 					<Text style={styles.header}>Select Starting Date: </Text>
-					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={fromDate} display="calendar" onChange={onChangeFrom} />
+					<DateTimePicker  style={styles.datePicker}  value={fromDate} onChange={onChangeFrom} />
 					<Text style={styles.header}>Select Ending Date: </Text>
-					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={toDate} display="calendar" onChange={onChangeTo} />
+					<DateTimePicker  style={styles.datePicker}  value={toDate} onChange={onChangeTo} />
 					<View style={{ marginTop: 10,borderWidth: 3, borderColor:colors.buttonColor, borderRadius: 15, backgroundColor: "white", height:280 }}>
 						<Text style={styles.header2}>Select Your Pet Type: {pet}</Text>
 						<Picker
@@ -130,17 +129,6 @@ const PostPets = () => {
 							<Text style={styles.buttonText}>Submit Your Post!</Text>
 						</TouchableOpacity>
 					</View>
-					{/* <Text style={styles.header}>Post About Your Pets Here</Text>
-            <TextInput style={styles.input}placeholder="Title of Post"  />
-             <TextInput style={styles.input} placeholder="Info About Your Pets" />
-             <TextInput style={styles.input} placeholder="Info About Your Pets" />
-             <TextInput style={styles.input} placeholder="Location" />
-             <TextInput style={styles.input} placeholder="House Information" />
-        </View>
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-                <Text style={styles.buttonText}>Upload Your Photos Here</Text>
-            </TouchableOpacity> */}
 				</View>
 			</KeyboardAvoidingView>
 			</ScrollView>
@@ -242,7 +230,8 @@ const styles = StyleSheet.create({
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: 20
+		marginTop: 20,
+		marginBottom: 50
 
 	},
 	button: {

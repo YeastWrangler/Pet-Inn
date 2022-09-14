@@ -51,7 +51,7 @@ const PetsList = ({ navigation }) => {
                 }}
                 style={styles.centerContent}
               >
-                <Text>{item.title}</Text>
+                <Text style={styles.title}>{item.title}</Text>
                 <Image
                   style={styles.featuredImage}
                   source={{
@@ -59,10 +59,10 @@ const PetsList = ({ navigation }) => {
                   }}
                 />
                 <Text style={styles.location}>{item.location}</Text>
-                <Text>
+                <Text style={styles.content}>
                   {moment(item.date_from).format("MMM Do, YYYY")} to {moment(item.date_to).format("MMM Do, YYYY")}
                 </Text>
-                <Text>
+                <Text style={styles.content}>
                   {item.pets.map((pet, index) => {
                     if (index === item.pets.length - 1) {
                       return pet;
@@ -72,7 +72,7 @@ const PetsList = ({ navigation }) => {
                   })}
                 </Text>
 
-                <Text>{item.payment === 0 ? "Free" : `£${item.payment}`}</Text>
+                <Text style={styles.content}>{item.payment === 0 ? "Free" : `£${item.payment}`}</Text>
               </Pressable>
             </View>
           );
@@ -87,29 +87,45 @@ const styles = StyleSheet.create({
     backgroundColor: colors.buttonColor,
   },
   pageHeader: {
-    margin: 10,
-    fontSize: 16,
+    margin: 15,
+    fontSize: 18,
     fontWeight: "900",
     color: "white",
     textAlign: "center",
+    
   },
   singleListing: {
     backgroundColor: "pink",
-    marginTop: 10,
+    marginTop: 20,
     padding: 16,
-    fontSize: 16,
     alignItems: "center",
+    borderRadius: 15,
+    width: "90%",
+    alignSelf: "center",
+   
+  },
+  title: {
+    fontWeight: "800",
+    fontSize: 18,
+    textAlign: "center"
   },
   centerContent: {
     alignItems: "center",
   },
   featuredImage: {
-    width: 150,
+    width: 200,
     height: undefined,
     aspectRatio: 1,
+    borderRadius: 15,
+    margin: 10,
   },
+  content: {
+		fontSize: 18,
+	},
   location: {
     fontWeight: "700",
+    fontSize: 20,
+    textDecorationLine: "underline"
   },
   loadingIndicator: {
     flex: 1,
