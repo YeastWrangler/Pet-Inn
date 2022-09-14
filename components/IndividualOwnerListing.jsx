@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   FlatList,
@@ -15,13 +15,14 @@ import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment"
 import { getUserInfo } from "../dbCalls/User";
+import userContext from "../context/context";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
   const { id, username } = route.params;
-  console.log(route.params);
   const [ownerListing, setOwnerListing] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState("")
+  const {currUser } = useContext(userContext);
 
   useEffect(() => {
     getOneOwnerListing(id)
@@ -33,17 +34,18 @@ const IndividualOwnerListing = ({ navigation, route }) => {
         console.log(err);
         //need to error handle
       });
-
-      getUserInfo(username).then(({ email }) => {
-        setUserEmail(email);
+console.log(username, currUser);
+      getUserInfo(username).then((data) => {
+        console.log(data);
+        // setUserEmail(email);
         // setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
         //need to error handle
       });
-  }, []);
-  
+    }, []);
+
   if (isLoading)
     return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 
@@ -104,15 +106,16 @@ const IndividualOwnerListing = ({ navigation, route }) => {
           <Text style={styles.content}>{ownerListing.username}</Text>
         </View>
 
+        
         <Pressable
           style={styles.contactButton}
           onPress={() => {
-            console.log("Contact Email Clicked");
-            Linking.openURL(`mailto:${userEmail}?subject=Pet Inn Query`)
+            Linking.openURL(`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`)
           }}
         >
           <Text style={styles.contactButtonText}>Contact Owner</Text>
         </Pressable>
+        
       </View>
     </ScrollView>
   );
