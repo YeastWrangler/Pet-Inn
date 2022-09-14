@@ -8,6 +8,7 @@ import {
 	ScrollView,
 	Pressable,
 } from "react-native";
+import { colors } from "../assets/colors";
 import { sitterListingTestData } from "../test data/sitterListingTestData";
 
 const IndividualSitterListing = ({ navigation, route }) => {
@@ -21,6 +22,7 @@ const IndividualSitterListing = ({ navigation, route }) => {
 		<ScrollView>
 			<View style={styles.container}>
 				<Text style={styles.listingTitle}>{filteredData.title}</Text>
+				
 				<Text style={styles.content}>{filteredData.location}</Text>
 				<View style={styles.datesContainer}>
 					<View style={styles.infoContainer}>
@@ -54,22 +56,27 @@ const IndividualSitterListing = ({ navigation, route }) => {
 					<Text style={styles.heading}>Date Posted: </Text>
 					<Text style={styles.content}>{filteredData.data_posted}</Text>
 				</View>
+				<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{filteredData.username}</Text>
+					</View>
+					<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Rating: </Text>
+					<Text style={styles.content}>⭐️ ⭐️</Text>
+					{/* need to insert rating */}
+				</View>
 				<Pressable
 					style={styles.contactButton}
 					onPress={() => {
 						navigation.navigate("Reviews", { user: filteredData.username });
 					}}
-				>
-					<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{filteredData.username}</Text>
-					</View>
+				><View style={styles.infoContainer}>
+				<Text style={styles.contactButtonText}>Click to See Reviews of User: </Text>
+				<Text style={styles.content2}>{filteredData.username}</Text>
+			</View>
+					
+				
 				</Pressable>
-				<View style={styles.infoContainer}>
-					<Text style={styles.heading}>Rating: </Text>
-					<Text style={styles.content}>Insert Rating</Text>
-					{/* need to insert rating */}
-				</View>
 
 				<Pressable
 					style={styles.contactButton}
@@ -89,11 +96,14 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		backgroundColor: "pink",
+		height:1000
 	},
 	listingTitle: {
 		fontSize: 20,
 		fontWeight: "700",
-		margin: 10,
+		margin: 20,
+		width:"80%",
+		textAlign: "center"
 	},
 	datesContainer: {
 		flexDirection: "row",
@@ -115,9 +125,17 @@ const styles = StyleSheet.create({
 	},
 	heading: {
 		fontWeight: "700",
+		fontSize: 20
 	},
 	content: {
-		fontSize: 16,
+		fontSize: 18,
+	},
+
+	content2: {
+		fontSize: 18,
+		fontWeight: "700",
+		color: "yellow",
+		textDecorationLine: "underline"
 	},
 	payment: {
 		fontSize: 20,
@@ -127,7 +145,7 @@ const styles = StyleSheet.create({
 	contactButton: {
 		margin: 10,
 		padding: 6,
-		backgroundColor: "blue",
+		backgroundColor: colors.buttonColor,
 		borderRadius: 6,
 		color: "white",
 	},

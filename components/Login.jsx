@@ -32,13 +32,7 @@ const Login = ({ navigation }) => {
 			navigation.navigate("LoggedinHome");
 		});
 	};
-	const handleSignUp = () => {
-		console.log("handle signup press");
-		//need stuff
-	};
 
-    //need stuff
-  };
   const handleSignUp = () => {
     navigation.navigate("CreateUser");
   };
@@ -79,8 +73,9 @@ const Login = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
-  );
-};
+  )
+}
+  
 
 const styles = StyleSheet.create({
   container: {
@@ -111,6 +106,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
+	margin: 15
   },
   buttonOutline: {
     backgroundColor: "white",
