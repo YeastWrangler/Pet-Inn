@@ -14,7 +14,7 @@ import {
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
-import { getUserInfo } from "../dbCalls/User";
+import { addToWatchList, getUserInfo } from "../dbCalls/User";
 import userContext from "../context/context";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
@@ -37,7 +37,7 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 		console.log(username, currUser);
 		getUserInfo(username)
 			.then((data) => {
-				console.log(data);
+				console.log("data", data);
 				// setUserEmail(email);
 				// setIsLoading(false);
 			})
@@ -46,6 +46,11 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 				//need to error handle
 			});
 	}, []);
+
+	const handleAddingToList = () => {
+		addToWatchList(currUser.username, ownerListing);
+		console.log("hello");
+	};
 
 	if (isLoading)
 		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
@@ -127,6 +132,9 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 					}}
 				>
 					<Text style={styles.contactButtonText}>Contact Owner</Text>
+				</Pressable>
+				<Pressable style={styles.contactButton} onPress={handleAddingToList}>
+					<Text style={styles.contactButtonText}>Add to Watchlist</Text>
 				</Pressable>
 			</View>
 		</ScrollView>

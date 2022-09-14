@@ -11,6 +11,7 @@ import {
 import { colors } from "../assets/colors";
 import moment from "moment";
 import userContext from "../context/context";
+import { deleteFromWatchList } from "../dbCalls/User";
 
 const WatchList = ({ navigation }) => {
 	const [watchList, setwatchList] = useState([]);
@@ -20,8 +21,7 @@ const WatchList = ({ navigation }) => {
 	useEffect(() => {
 		setwatchList(currUser.watchlist);
 		setIsLoading(false);
-	}, []);
-	console.log(watchList);
+	}, [currUser, watchList]);
 
 	if (isLoading)
 		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
@@ -69,6 +69,15 @@ const WatchList = ({ navigation }) => {
 								</Text>
 
 								<Text>{item.payment === 0 ? "Free" : `£${item.payment}`}</Text>
+							</Pressable>
+							<Pressable
+								onPress={() => {
+									console.log("hello");
+									deleteFromWatchList(currUser.username, item._id);
+								}}
+								style={styles.centerContent}
+							>
+								<Text>Delete from Watchlist</Text>
 							</Pressable>
 						</View>
 					);

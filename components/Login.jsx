@@ -20,14 +20,23 @@ const Login = ({ navigation }) => {
 	const pressHandler = () => {
 		navigation.navigate("LoggedinHome");
 	};
+	const loginData = { email: email, password: password };
+	console.log(loginData);
 	const handleLoginPress = () => {
 		// console.log("handle login press")
-		// setCurrUser({email:email, password:password})
-		const loginData = { email: email, password: password };
-		loginUser(loginData).then((data) => {
-			setCurrUser(data.user);
-			navigation.navigate("LoggedinHome");
-		});
+		loginUser(loginData)
+			.then((data) => {
+				setCurrUser(data.user);
+				navigation.navigate("LoggedinHome");
+			})
+			.catch((err) => {
+				setTimeout(() => {
+					setEmail("Invalid Email/Password");
+				}, 1000);
+				setTimeout(() => {
+					setEmail(""), setPassword("");
+				}, 2000);
+			});
 	};
 	const handleSignUp = () => {
 		console.log("handle signup press");
