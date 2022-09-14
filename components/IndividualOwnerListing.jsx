@@ -1,69 +1,74 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  StyleSheet,
-  FlatList,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  Pressable,
-  ActivityIndicator,
-  Linking
+	StyleSheet,
+	FlatList,
+	Text,
+	View,
+	Image,
+	ScrollView,
+	Pressable,
+	ActivityIndicator,
+	Linking,
 } from "react-native";
 
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
-import moment from "moment"
+import moment from "moment";
 import { getUserInfo } from "../dbCalls/User";
 import userContext from "../context/context";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
-  const { id, username } = route.params;
-  const [ownerListing, setOwnerListing] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [userEmail, setUserEmail] = useState("")
-  const {currUser } = useContext(userContext);
+	const { id, username } = route.params;
+	const [ownerListing, setOwnerListing] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [userEmail, setUserEmail] = useState("");
+	const { currUser } = useContext(userContext);
 
-  useEffect(() => {
-    getOneOwnerListing(id)
-      .then(({ ownerListing }) => {
-        setOwnerListing(ownerListing);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        //need to error handle
-      });
-console.log(username, currUser);
-      getUserInfo(username).then((data) => {
-        console.log(data);
-        // setUserEmail(email);
-        // setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        //need to error handle
-      });
-    }, []);
+	useEffect(() => {
+		getOneOwnerListing(id)
+			.then(({ ownerListing }) => {
+				setOwnerListing(ownerListing);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				//need to error handle
+			});
+		console.log(username, currUser);
+		getUserInfo(username)
+			.then((data) => {
+				console.log(data);
+				// setUserEmail(email);
+				// setIsLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				//need to error handle
+			});
+	}, []);
 
-  if (isLoading)
-    return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
+	if (isLoading)
+		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.listingTitle}>{ownerListing.title}</Text>
-        <Text style={styles.content}>{ownerListing.location}</Text>
-        <View style={styles.datesContainer}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.heading}>Date From: </Text>
-            <Text style={styles.content}>{moment(ownerListing.date_from).format("MMM Do, YYYY")}</Text>
-          </View>
-          <View style={styles.infoContainer}>
-            <Text style={styles.heading}>Date To: </Text>
-            <Text style={styles.content}>{moment(ownerListing.date_to).format("MMM Do, YYYY")}</Text>
-          </View>
-        </View>
+	return (
+		<ScrollView>
+			<View style={styles.container}>
+				<Text style={styles.listingTitle}>{ownerListing.title}</Text>
+				<Text style={styles.content}>{ownerListing.location}</Text>
+				<View style={styles.datesContainer}>
+					<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Date From: </Text>
+						<Text style={styles.content}>
+							{moment(ownerListing.date_from).format("MMM Do, YYYY")}
+						</Text>
+					</View>
+					<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Date To: </Text>
+						<Text style={styles.content}>
+							{moment(ownerListing.date_to).format("MMM Do, YYYY")}
+						</Text>
+					</View>
+				</View>
 
 				{/* <Text>{ownerListing.rating}</Text> */}
 
@@ -101,24 +106,48 @@ console.log(username, currUser);
 					</Text>
 				</View>
 
-        <View style={styles.infoContainer}>
-          <Text style={styles.heading}>Posted By: </Text>
-          <Text style={styles.content}>{ownerListing.username}</Text>
-        </View>
+				<Pressable
+					style={styles.contactButton}
+					onPress={() => {
+						navigation.navigate("Reviews", { user: ownerListing.username });
+						//needs to open chat window/page when clicked
+					}}
+				>
+					<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{ownerListing.username}</Text>
+					</View>
+				</Pressable>
+				<Pressable
+					style={styles.contactButton}
+					onPress={() => {
+						Linking.openURL(
+							`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`
+						);
+					}}
+				>
+					<Text style={styles.contactButtonText}>Contact Owner</Text>
+				</Pressable>
+			</View>
+		</ScrollView>
+	);
+	// <View style={styles.infoContainer}>
+	//   <Text style={styles.heading}>Posted By: </Text>
+	//   <Text style={styles.content}>{ownerListing.username}</Text>
+	// </View>
 
-        
-        <Pressable
-          style={styles.contactButton}
-          onPress={() => {
-            Linking.openURL(`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`)
-          }}
-        >
-          <Text style={styles.contactButtonText}>Contact Owner</Text>
-        </Pressable>
-        
-      </View>
-    </ScrollView>
-  );
+	// <Pressable
+	//   style={styles.contactButton}
+	//   onPress={() => {
+	//     Linking.openURL(`mailto:gandalf@hotmail.co.uk?subject=Pet Inn Query`)
+	//   }}
+	// >
+	//   <Text style={styles.contactButtonText}>Contact Owner</Text>
+	// </Pressable>
+
+	//   </View>
+	// </ScrollView>
+	//   );
 };
 
 const styles = StyleSheet.create({
