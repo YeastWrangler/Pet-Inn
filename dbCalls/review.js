@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getReviews = (username) => {
-	console.log(username);
 	return axios
 		.get(`https://busy-ruby-narwhal-kit.cyclic.app/api/reviews/${username}`)
 		.then(({ data }) => {

@@ -29,6 +29,7 @@ export const getOneSitterListing = (id) => {
 	return axios
 		.get(`https://busy-ruby-narwhal-kit.cyclic.app/api/sitters/listings/${id}`)
 		.then(({ data }) => {
+			console.log(data);
 			return data;
 		});
 };

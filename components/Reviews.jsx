@@ -24,7 +24,7 @@ const Reviews = ({ route }) => {
 			setReviews(data.reviews);
 			setIsLoading(false);
 		});
-	}, []);
+	}, [currUser]);
 
 	if (isLoading)
 		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
