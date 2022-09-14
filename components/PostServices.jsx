@@ -47,12 +47,10 @@ const PostServices = () => {
 		payment: parseInt(payment),
 		user_avatar_url: avatar_url
 	};
-	console.log("new listing", newListing);
+	
 
 	const handlePress = () => {
-		// loginUser(currUser).then((data) => {
-		// 	//console.log("logged in:", currUser);
-		// });
+	
 		postSitterListing(newListing).then((data) => {
 			Alert.alert("Your Post Was Successful", "You'll be cuddling pets in no time!")
 		}).catch((err) => {
@@ -149,7 +147,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
-		
 		backgroundColor: "pink"
 	},
 	header: {
@@ -243,7 +240,8 @@ const styles = StyleSheet.create({
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
-		marginTop: 20
+		marginTop: 20,
+    marginBottom: 50
 
 	},
 	button: {

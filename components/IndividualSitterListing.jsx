@@ -9,6 +9,7 @@ import {
 	Pressable,
 	ActivityIndicator,
 } from "react-native";
+import { colors } from "../assets/colors";
 import { getOneSitterListing } from "../dbCalls/sitterListing";
 
 const IndividualSitterListing = ({ navigation, route }) => {
@@ -67,6 +68,15 @@ const IndividualSitterListing = ({ navigation, route }) => {
 					<Text style={styles.heading}>Date Posted: </Text>
 					<Text style={styles.content}>{sitterListing.data_posted}</Text>
 				</View>
+				<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{filteredData.username}</Text>
+					</View>
+					<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Rating: </Text>
+					<Text style={styles.content}>⭐️ ⭐️</Text>
+					{/* need to insert rating */}
+				</View>
 				<Pressable
 					style={styles.contactButton}
 					onPress={() => {
@@ -101,11 +111,14 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		backgroundColor: "pink",
+		height:1000
 	},
 	listingTitle: {
 		fontSize: 20,
 		fontWeight: "700",
-		margin: 10,
+		margin: 20,
+		width:"80%",
+		textAlign: "center"
 	},
 	datesContainer: {
 		flexDirection: "row",
@@ -127,9 +140,17 @@ const styles = StyleSheet.create({
 	},
 	heading: {
 		fontWeight: "700",
+		fontSize: 20
 	},
 	content: {
-		fontSize: 16,
+		fontSize: 18,
+	},
+
+	content2: {
+		fontSize: 18,
+		fontWeight: "700",
+		color: "yellow",
+		textDecorationLine: "underline"
 	},
 	payment: {
 		fontSize: 20,
@@ -139,7 +160,7 @@ const styles = StyleSheet.create({
 	contactButton: {
 		margin: 10,
 		padding: 6,
-		backgroundColor: "blue",
+		backgroundColor: colors.buttonColor,
 		borderRadius: 6,
 		color: "white",
 	},

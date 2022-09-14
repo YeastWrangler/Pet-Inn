@@ -16,6 +16,7 @@ import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
 import { addToWatchList, getUserInfo } from "../dbCalls/User";
 import userContext from "../context/context";
+import { colors } from "../assets/colors";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
 	const { id, username } = route.params;
@@ -109,6 +110,10 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 						{moment(ownerListing.date_added).format("MMM Do, YYYY")}
 					</Text>
 				</View>
+				<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{ownerListing.username}</Text>
+					</View>
 
 				<Pressable
 					style={styles.contactButton}
@@ -116,11 +121,11 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 						navigation.navigate("Reviews", { user: ownerListing.username });
 						//needs to open chat window/page when clicked
 					}}
-				>
-					<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{ownerListing.username}</Text>
-					</View>
+				><View style={styles.infoContainer}>
+				<Text style={styles.contactButtonText}>Click to See Reviews of User: </Text>
+				<Text style={styles.content2}>{ownerListing.username}</Text>
+			</View>
+				
 				</Pressable>
 				<Pressable
 					style={styles.contactButton}
@@ -161,11 +166,15 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		backgroundColor: "pink",
+		height:1000
+		
 	},
 	listingTitle: {
 		fontSize: 20,
 		fontWeight: "700",
-		margin: 10,
+		margin: 20,
+		width:"80%",
+		textAlign: "center"
 	},
 	datesContainer: {
 		flexDirection: "row",
@@ -189,7 +198,13 @@ const styles = StyleSheet.create({
 		fontWeight: "700",
 	},
 	content: {
-		fontSize: 16,
+		fontSize: 18,
+	},
+	content2: {
+		fontSize: 18,
+		fontWeight: "700",
+		color: "yellow",
+		textDecorationLine: "underline"
 	},
 	payment: {
 		fontSize: 20,
@@ -199,7 +214,7 @@ const styles = StyleSheet.create({
 	contactButton: {
 		margin: 10,
 		padding: 6,
-		backgroundColor: "blue",
+		backgroundColor: colors.buttonColor,
 		borderRadius: 6,
 		color: "white",
 	},

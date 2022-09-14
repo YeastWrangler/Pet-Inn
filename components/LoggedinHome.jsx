@@ -32,7 +32,8 @@ const LoggedinHome = ({ navigation }) => {
   return (
     <View style={styles.backGround}>
    
-      <Text style={styles.text}> Welcome Home: {currUser.username} </Text>
+      <Text style={styles.text}> Welcome Home {currUser.username} </Text>
+      
      
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePetsPress}>
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   secondButtonContainer: {
     width: "70%",
-    height: "15%",
+    height: "12%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   secondButtonText: {
     color: colors.buttonColor,
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 
