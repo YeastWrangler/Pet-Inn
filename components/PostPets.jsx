@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
-import { getListingByOwner, loginUser, postListingByOwner } from "../api";
 import { useEffect, useContext } from "react";
 import userContext from "../context/context";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { postOwnerListing } from "../dbCalls/ownerListing";
 
 const PostPets = () => {
 
@@ -48,7 +48,7 @@ const PostPets = () => {
 		// loginUser(currUser).then((data) => {
 		// 	//console.log("logged in:", currUser);
 		// });
-		postListingByOwner(newListing).then((data) => {
+		postOwnerListing(newListing).then((data) => {
 			Alert.alert("Your Post Was Successful", "You Deserve a Treat!")
 			
 		}).catch((err) => {
