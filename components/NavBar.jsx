@@ -47,12 +47,12 @@ const NavBar = () => {
 				},
 			})}
 		>
-			{showTab ? (
+		
 				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Main Screen" component={Screens} />
-					<Tab.Screen name="Home Page" component={LoggedinHome} />
-					<Tab.Screen name="Watchlist" component={WatchList} />
-					<Tab.Screen
+					<Tab.Screen name="Home Page" component={Screens} />
+					{/* <Tab.Screen name="Home Page" component={LoggedinHome} /> */}
+					{currUser.username && <Tab.Screen name="Watchlist" component={WatchList} />}
+					{currUser.username && <Tab.Screen
 						name="Profile"
 						component={UserProfile}
 						options={{
@@ -66,13 +66,9 @@ const NavBar = () => {
 								</View>
 							),
 						}}
-					/>
+					/>}
 				</Tab.Group>
-			) : (
-				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Main Screen" component={Screens} />
-				</Tab.Group>
-			)}
+			
 		</Tab.Navigator>
 	);
 };

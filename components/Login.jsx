@@ -16,13 +16,13 @@ import { loginUser } from "../dbCalls/User";
 const Login = ({ navigation }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const { currUser, setCurrUser } = useContext(userContext);
+	const { setCurrUser } = useContext(userContext);
 
 	const pressHandler = () => {
 		navigation.navigate("LoggedinHome");
 	};
 	const loginData = { email: email, password: password };
-	console.log(loginData);
+
 	const handleLoginPress = () => {
 		loginUser(loginData)
 			.then((data) => {
@@ -37,7 +37,7 @@ const Login = ({ navigation }) => {
 				setTimeout(() => {
 					setEmail(""), setPassword("");
 				}, 2000);
-			});
+			})}
 
 		const handleSignUp = () => {
 			navigation.navigate("CreateUser");
@@ -143,6 +143,6 @@ const Login = ({ navigation }) => {
 			fontSize: 16,
 		},
 	});
-};
+
 
 export default Login;

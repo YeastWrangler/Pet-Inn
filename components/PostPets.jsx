@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
-import { getListingByOwner, loginUser, postListingByOwner } from "../api";
+import {  postListingByOwner } from "../dbCalls/ownerListing";
 import { useEffect, useContext } from "react";
 import userContext from "../context/context";
 import DateTimePicker from '@react-native-community/datetimepicker';
