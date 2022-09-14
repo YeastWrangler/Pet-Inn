@@ -18,6 +18,7 @@ import userContext from "../context/context";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const PostPets = () => {
+
 	const { currUser } = useContext(userContext);
 
 	const [pet, setPet] = useState([]);
@@ -51,7 +52,9 @@ const PostPets = () => {
 		postListingByOwner(newListing).then((data) => {
 			Alert.alert("Your Post Was Successful", "You Deserve a Treat!")
 			
-		});
+		}).catch((err) => {
+			Alert.alert("Whoops! Your Post was Not Successful. Please Try Again")
+		})
 	};
 
 	const onChangeFrom = (event, selectedDate) => {
@@ -106,19 +109,19 @@ const PostPets = () => {
 					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={fromDate} display="calendar" onChange={onChangeFrom} />
 					<Text style={styles.header}>Select Ending Date: </Text>
 					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={toDate} display="calendar" onChange={onChangeTo} />
-					<View style={{ marginTop: 10,borderWidth: 1, borderColor:colors.buttonColor, borderRadius: 15, backgroundColor: "white", height:250 }}>
+					<View style={{ marginTop: 10,borderWidth: 3, borderColor:colors.buttonColor, borderRadius: 15, backgroundColor: "white", height:280 }}>
 						<Text style={styles.header2}>Select Your Pet Type: {pet}</Text>
 						<Picker
-						itemStyle={{ color: colors.buttonColor, fontSize:25 }}
+						itemStyle={{ color: colors.buttonColor, fontweight: "800" ,fontSize:30 }}
 							selectedValue={pet}
 							onValueChange={(currentPet) => setPet(currentPet)}
 						>
-							<Picker.Item label="" value="" />
-							<Picker.Item label="Cat" value="Cat" />
-							<Picker.Item label="Dog" value="Dog" />
-							<Picker.Item label="Fish" value="Fish" />
-							<Picker.Item label="Ogre" value="Ogre" />
-							<Picker.Item label="Other" value="Other" />
+							<Picker.Item label="Select: ⬇️" value="Select:" />
+							<Picker.Item label="Cat" value="Cat 🐈" />
+							<Picker.Item label="Dog" value="Dog 🦮" />
+							<Picker.Item label="Fish" value="Fish 🐡" />
+							<Picker.Item label="Ogre" value="Ogre 🐸" />
+							<Picker.Item label="Other" value="Other 🙈" />
 						</Picker>
 					</View>
 
