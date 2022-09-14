@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Picker } from "@react-native-picker/picker";
-import { getListingByOwner, loginUser, postListingByOwner } from "../api";
+import {postSitterListing} from "../dbCalls/sitterListing"
 import { useEffect, useContext } from "react";
 import userContext from "../context/context";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -21,26 +21,31 @@ const PostServices = () => {
 	const { currUser } = useContext(userContext);
 
 	const [pet, setPet] = useState([]);
-	const [username, setUsername] = useState("Alex");
+	const [username, setUsername] = useState("");
 	const [title, setTitle] = useState("");
 	const [toDate, setToDate] = useState(new Date())
 	const [fromDate, setFromDate] = useState(new Date())
 	const [location, setLocation] = useState("")
 	const [info, setInfo] = useState("");
 	const [payment, setPayment] = useState(0);
-	const [image_urls, setImage_urls] = useState("");
+	const [avatar_url, setAvatar_url] = useState("");
+
+  useEffect(() => {
+    setUsername(currUser.username)
+  }, [])
+  console.log(currUser.username)
 
 
 	let newListing = {
 		username: username,
 		title: title,
-		pets: [pet],
+		suitable_pets: [pet],
 		date_from: fromDate,
 		date_to: toDate,
 		location: location,
 		additional_info: info,
 		payment: parseInt(payment),
-		image_urls: [image_urls],
+		user_avatar_url: avatar_url
 	};
 	console.log("new listing", newListing);
 
@@ -48,10 +53,11 @@ const PostServices = () => {
 		// loginUser(currUser).then((data) => {
 		// 	//console.log("logged in:", currUser);
 		// });
-		postListingByOwner(newListing).then((data) => {
-			Alert.alert("Your Post Was Successful", "You'll cuddling pets in no time!")
-			
-		});
+		postSitterListing(newListing).then((data) => {
+			Alert.alert("Your Post Was Successful", "You'll be cuddling pets in no time!")
+		}).catch((err) => {
+			Alert.alert("Whoops! Your Post was Not Successful. Please Try Again")
+		})
 	};
 
 	const onChangeFrom = (event, selectedDate) => {
@@ -70,7 +76,8 @@ const PostServices = () => {
 			<ScrollView >
 			<KeyboardAvoidingView style={styles.container} behavior="padding">
 				<View style={styles.inputContainer}>
-					<Text style={styles.text}>🐶 Post About Your Pets 🐭</Text>
+					<Text style={styles.text}>🐶 Post About Your Pet Services 🐵</Text>
+        
 					<TextInput
 						value={title}
 						style={styles.input}
@@ -80,7 +87,7 @@ const PostServices = () => {
 					<TextInput
 						style={styles.input}
 						onChangeText={setInfo}
-						placeholder="Info About Your Pets"
+						placeholder="Info About Your Services"
 					/>
 					
 					{/* <DatePicker date={fromDate} onDateChange={setFromDate} />
@@ -99,26 +106,29 @@ const PostServices = () => {
 					/>
 					<TextInput
 						style={styles.input}
-						onChangeText={setImage_urls}
-						placeholder="Upload Your Photo URLs"
+						onChangeText={setAvatar_url}
+						placeholder="Upload Your Avatar URL"
 					/>
-					<Text style={styles.header}>Select Starting Date: </Text>
+					<Text style={styles.header}>Select Starting Availability: </Text>
 					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={fromDate} display="calendar" onChange={onChangeFrom} />
-					<Text style={styles.header}>Select Ending Date: </Text>
+					<Text style={styles.header}>Select Ending Availability: </Text>
 					<DateTimePicker positiveButtonLabel="OK!" style={styles.datePicker}  value={toDate} display="calendar" onChange={onChangeTo} />
-					<View style={{ marginTop: 10,borderWidth: 1, borderColor:colors.buttonColor, borderRadius: 15, backgroundColor: "white", height:250 }}>
-						<Text style={styles.header2}>Select Your Pet Type: {pet}</Text>
+					<View style={{ marginTop: 10, marginBottom: 10, borderWidth: 3, borderColor:colors.buttonColor, borderRadius: 15, backgroundColor: "white", height:300 }}>
+						<Text style={styles.header2}>Select the Kind of Pets You Can Help: {pet}</Text>
 						<Picker
-						itemStyle={{ color: colors.buttonColor, fontSize:25 }}
+						itemStyle={{ color: colors.buttonColor, fontSize:30 }}
 							selectedValue={pet}
 							onValueChange={(currentPet) => setPet(currentPet)}
 						>
-							<Picker.Item label="" value="" />
-							<Picker.Item label="Cat" value="Cat" />
-							<Picker.Item label="Dog" value="Dog" />
-							<Picker.Item label="Fish" value="Fish" />
-							<Picker.Item label="Ogre" value="Ogre" />
-							<Picker.Item label="Other" value="Other" />
+							<Picker.Item label="Select: ⬇️" value="Select:" />
+              <Picker.Item label="Monkey" value="Monkey 🐵" />
+              <Picker.Item label="Lizard" value="Lizard 🐸" />
+              <Picker.Item label="Rodents" value="Rodents 🐁" />
+							<Picker.Item label="Cat" value="Cat 🐈" />
+							<Picker.Item label="Dog" value="Dog 🦮" />
+							<Picker.Item label="Fish" value="Fish 🐠" />
+							<Picker.Item label="Ogre" value="Ogre 🧌" />
+							<Picker.Item label="All" value="All 🐼" />
 						</Picker>
 					</View>
 
@@ -127,17 +137,6 @@ const PostServices = () => {
 							<Text style={styles.buttonText}>Submit Your Post!</Text>
 						</TouchableOpacity>
 					</View>
-					{/* <Text style={styles.header}>Post About Your Pets Here</Text>
-            <TextInput style={styles.input}placeholder="Title of Post"  />
-             <TextInput style={styles.input} placeholder="Info About Your Pets" />
-             <TextInput style={styles.input} placeholder="Info About Your Pets" />
-             <TextInput style={styles.input} placeholder="Location" />
-             <TextInput style={styles.input} placeholder="House Information" />
-        </View>
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-                <Text style={styles.buttonText}>Upload Your Photos Here</Text>
-            </TouchableOpacity> */}
 				</View>
 			</KeyboardAvoidingView>
 			</ScrollView>
@@ -177,11 +176,13 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight:"500",
 		color: "white",
-		height:40,
+		height:70,
 		marginTop:15,
+    paddingLeft:10,
+    paddingRight: 10,
 		justifyContent: "center",
 		backgroundColor: colors.buttonColor,
-		width:"85%",
+		width:"90%",
 		borderRadius: 15,
 		borderWidth: 2,
 		textAlign:"center",
@@ -203,7 +204,8 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		borderWidth:1,
 		borderColor: colors.buttonColor,
-		overflow:"hidden"
+		overflow:"hidden",
+  
 },
 
 	petPicker: {
@@ -218,11 +220,13 @@ const styles = StyleSheet.create({
 		alignContent: "center",
 		margin: 10,
 		textShadowColor:"black",
-		textShadowRadius:10
+		textShadowRadius:10,
+    alignSelf: "center",
+    textAlign:"center",
 	},
 
 	inputContainer: {
-		width: "80%",
+		width: "85%",
 		margin: 10,
 		
 	},

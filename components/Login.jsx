@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import { colors } from "../assets/colors";
 import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  TouchableOpacity,
+
+	StyleSheet,
+	Text,
+	View,
+	Button,
+	TextInput,
+	TouchableOpacity,
+	Alert
 } from "react-native";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 import userContext from "../context/context";
@@ -17,17 +19,23 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const { currUser, setCurrUser } = useContext(userContext);
 
-  const pressHandler = () => {
-    navigation.navigate("LoggedinHome");
-  };
-  const handleLoginPress = () => {
-    // console.log("handle login press")
-    // setCurrUser({email:email, password:password})
-    const loginData = { email: email, password: password };
-    loginUser(loginData).then((user) => {
-      setCurrUser(user);
-      navigation.navigate("LoggedinHome");
-    });
+	const pressHandler = () => {
+		navigation.navigate("LoggedinHome");
+	};
+	const handleLoginPress = () => {
+		// console.log("handle login press")
+		// setCurrUser({email:email, password:password})
+		const loginData = { email: email, password: password };
+		loginUser(loginData).then((data) => {
+			setCurrUser(data.user);
+			Alert.alert(`You're now logged in as ${data.user.username}`)
+			navigation.navigate("LoggedinHome");
+		});
+	};
+	const handleSignUp = () => {
+		console.log("handle signup press");
+		//need stuff
+	};
 
     //need stuff
   };

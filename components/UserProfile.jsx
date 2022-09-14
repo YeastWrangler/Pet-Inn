@@ -67,7 +67,7 @@ const UserProfile = ({ navigation }) => {
 				}}
 			>
 				<Text style={styles.heading}>My Reviews: </Text>
-				<Text style={styles.content}>None</Text>
+				<Text style={styles.content}></Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={styles.infoContainer}
@@ -76,7 +76,7 @@ const UserProfile = ({ navigation }) => {
 				}}
 			>
 				<Text style={styles.heading}>My Wishlist: </Text>
-				<Text style={styles.content}>Empty</Text>
+				<Text style={styles.content}></Text>
 			</TouchableOpacity>
 			<TouchableOpacity style={styles.contactButton} onPress={() => {}}>
 				<Text style={styles.contactButtonText}>Edit My Profile</Text>
