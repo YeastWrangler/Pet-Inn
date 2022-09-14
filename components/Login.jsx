@@ -17,8 +17,6 @@ const Login = ({ navigation }) => {
 	const [password, setPassword] = useState("");
 	const { currUser, setCurrUser } = useContext(userContext);
 
-	console.log("current user:", email, password);
-
 	const pressHandler = () => {
 		navigation.navigate("LoggedinHome");
 	};
@@ -26,12 +24,10 @@ const Login = ({ navigation }) => {
 		// console.log("handle login press")
 		// setCurrUser({email:email, password:password})
 		const loginData = { email: email, password: password };
-		loginUser(loginData).then(
-			setCurrUser(loginData),
-			navigation.navigate("LoggedinHome")
-		);
-
-		//need stuff
+		loginUser(loginData).then((data) => {
+			setCurrUser(data.user);
+			navigation.navigate("LoggedinHome");
+		});
 	};
 	const handleSignUp = () => {
 		console.log("handle signup press");
