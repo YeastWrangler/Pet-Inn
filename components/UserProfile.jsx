@@ -5,8 +5,6 @@ import userContext from "../context/context";
 import { getReviews } from "../dbCalls/review";
 
 const UserProfile = ({ navigation }) => {
-	const avatar =
-		"https://i.insider.com/60817ec5354dde0018c06960?width=1300&format=jpeg&auto=webp";
 	const { currUser, setCurrUser } = useContext(userContext);
 	const [reviews, setReviews] = useState([]);
 	const [rating, setRating] = useState(0);
@@ -14,7 +12,6 @@ const UserProfile = ({ navigation }) => {
 	useEffect(() => {
 		getReviews(currUser.username)
 			.then((data) => {
-				console.log("data", data);
 				setReviews(data.reviews);
 			})
 			.then(() => {
@@ -28,8 +25,7 @@ const UserProfile = ({ navigation }) => {
 					setRating(total_ratings / reviews.length);
 				}
 			});
-	}, []);
-	console.log("currUser", currUser.username);
+	}, [currUser]);
 
 	return (
 		<SafeAreaView>
@@ -38,7 +34,7 @@ const UserProfile = ({ navigation }) => {
 					<Image
 						style={styles.avatar}
 						source={{
-							uri: avatar,
+							uri: currUser.avatar_url,
 						}}
 					/>
 				</View>

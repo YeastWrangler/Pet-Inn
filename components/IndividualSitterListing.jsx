@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	StyleSheet,
 	FlatList,
@@ -7,39 +7,51 @@ import {
 	Image,
 	ScrollView,
 	Pressable,
+	ActivityIndicator,
 } from "react-native";
 import { colors } from "../assets/colors";
-import { sitterListingTestData } from "../test data/sitterListingTestData";
+import { getOneSitterListing } from "../dbCalls/sitterListing";
 
 const IndividualSitterListing = ({ navigation, route }) => {
 	const { id } = route.params;
-	// console.log(id);
-	const testData = sitterListingTestData;
+	const [sitterListing, setSitterListing] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
-	const [filteredData] = testData.filter((element) => element._id === id);
-
+	useEffect(() => {
+		getOneSitterListing(id)
+			.then(({ sitterListings }) => {
+				setSitterListing(sitterListings);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				//need to error handle
+			});
+	}, []);
+	console.log(sitterListing.suitable_pets);
+	if (isLoading)
+		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
 	return (
 		<ScrollView>
 			<View style={styles.container}>
-				<Text style={styles.listingTitle}>{filteredData.title}</Text>
-				
-				<Text style={styles.content}>{filteredData.location}</Text>
+				<Text style={styles.listingTitle}>{sitterListing.title}</Text>
+				<Text style={styles.content}>{sitterListing.location}</Text>
 				<View style={styles.datesContainer}>
 					<View style={styles.infoContainer}>
 						<Text style={styles.heading}>Date From: </Text>
-						<Text style={styles.content}>{filteredData.dates.from}</Text>
+						<Text style={styles.content}>{sitterListing.date_from}</Text>
 					</View>
 					<View style={styles.infoContainer}>
 						<Text style={styles.heading}>Date To: </Text>
-						<Text style={styles.content}>{filteredData.dates.to}</Text>
+						<Text style={styles.content}>{sitterListing.date_to}</Text>
 					</View>
 				</View>
 
 				<View style={styles.infoContainer}>
 					<Text style={styles.heading}>Pet(s) covered: </Text>
 					<Text style={styles.content}>
-						{filteredData.suitable_pets.map((pet, index) => {
-							if (index === filteredData.suitable_pets.length - 1) {
+						{sitterListing.suitable_pets.map((pet, index) => {
+							if (index === sitterListing.suitable_pets.length - 1) {
 								return pet;
 							} else {
 								return `${pet}, `;
@@ -49,12 +61,12 @@ const IndividualSitterListing = ({ navigation, route }) => {
 				</View>
 
 				<Text style={styles.payment}>
-					{filteredData.payment === 0 ? "Free" : `£${filteredData.payment}`}
+					{sitterListing.payment === 0 ? "Free" : `£${sitterListing.payment}`}
 				</Text>
 
 				<View style={styles.infoContainer}>
 					<Text style={styles.heading}>Date Posted: </Text>
-					<Text style={styles.content}>{filteredData.data_posted}</Text>
+					<Text style={styles.content}>{sitterListing.data_posted}</Text>
 				</View>
 				<View style={styles.infoContainer}>
 						<Text style={styles.heading}>Posted By: </Text>
@@ -68,15 +80,18 @@ const IndividualSitterListing = ({ navigation, route }) => {
 				<Pressable
 					style={styles.contactButton}
 					onPress={() => {
-						navigation.navigate("Reviews", { user: filteredData.username });
+						navigation.navigate("Reviews", { user: sitterListing.username });
 					}}
-				><View style={styles.infoContainer}>
-				<Text style={styles.contactButtonText}>Click to See Reviews of User: </Text>
-				<Text style={styles.content2}>{filteredData.username}</Text>
-			</View>
-					
-				
+				>
+					<View style={styles.infoContainer}>
+						<Text style={styles.heading}>Posted By: </Text>
+						<Text style={styles.content}>{sitterListing.username}</Text>
+					</View>
 				</Pressable>
+				<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Rating: </Text>
+					<Text style={styles.content}>Insert Rating</Text>
+				</View>
 
 				<Pressable
 					style={styles.contactButton}
