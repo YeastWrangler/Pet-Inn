@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Login from "./Login";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -10,21 +10,10 @@ import Screens from "./Screens";
 import UserProfile from "./UserProfile";
 import userContext from "../context/context";
 import WatchList from "./Watchlist";
-import LoggedinHome from "./LoggedinHome";
 
 const NavBar = () => {
 	const Tab = createBottomTabNavigator();
 	const { currUser, setCurrUser } = useContext(userContext);
-
-	const [showTab, setShowTab] = useState(false);
-
-	useEffect(() => {
-		if (currUser.avatar_url !== undefined) {
-			setShowTab(true);
-		} else {
-			setShowTab(false);
-		}
-	}, [currUser]);
 
 	return (
 		<Tab.Navigator
@@ -34,8 +23,10 @@ const NavBar = () => {
 					let iconName;
 					let rn = route.name;
 
-					if (rn === "Home Page") {
+					if (rn === "Home") {
 						iconName = "home";
+					} else if (rn === "Inbox") {
+						iconName = "mail";
 					} else if (rn === "Watchlist") {
 						iconName = "heart";
 					}
@@ -47,12 +38,14 @@ const NavBar = () => {
 				},
 			})}
 		>
-		
-				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Home Page" component={Screens} />
-					{/* <Tab.Screen name="Home Page" component={LoggedinHome} /> */}
-					{currUser.username && <Tab.Screen name="Watchlist" component={WatchList} />}
-					{currUser.username && <Tab.Screen
+			<Tab.Group screenOptions={{ headerShown: false }}>
+				<Tab.Screen name="Home Page" component={Screens} />
+				{/* <Tab.Screen name="Home Page" component={LoggedinHome} /> */}
+				{currUser.username && (
+					<Tab.Screen name="Watchlist" component={WatchList} />
+				)}
+				{currUser.username && (
+					<Tab.Screen
 						name="Profile"
 						component={UserProfile}
 						options={{
@@ -66,9 +59,9 @@ const NavBar = () => {
 								</View>
 							),
 						}}
-					/>}
-				</Tab.Group>
-			
+					/>
+				)}
+			</Tab.Group>
 		</Tab.Navigator>
 	);
 };
