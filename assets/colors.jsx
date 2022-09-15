@@ -4,4 +4,5 @@ export const colors = {
 	buttonColor: "#0782F9",
 	buttonColor2: "#00BFFF",
 	red: "#FF4500",
+	cream: "#FFFFE6"
 };

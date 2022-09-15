@@ -81,7 +81,7 @@ const UserProfile = ({ navigation }) => {
 					navigation.navigate("WatchList");
 				}}
 			>
-				<Text style={styles.heading}>My Wishlist: </Text>
+				<Text style={styles.heading}>My Watchlist: </Text>
 				<Text style={styles.content}></Text>
 			</TouchableOpacity>
 			<TouchableOpacity style={styles.contactButton}>

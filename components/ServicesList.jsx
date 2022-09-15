@@ -73,7 +73,7 @@ const ServicesList = ({ navigation }) => {
 								</View>
 
 								<Text style={styles.content}>
-									{item.date_from} to {item.date_to}
+									{moment(item.date_from).format("MMM Do, YYYY")} to {moment(item.date_to).format("MMM Do, YYYY")}
 								</Text>
 
 								<Text style={[styles.payment, styles.content]}>

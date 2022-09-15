@@ -43,25 +43,27 @@ const Login = ({ navigation }) => {
 	const handleSignUp = () => {
 		navigation.navigate("CreateUser");
 	};
+		
 
-	return (
-		<KeyboardAvoidingView style={styles.container} behavior="padding">
-			<View style={styles.inputContainer}>
-				<TextInput
-					style={styles.input}
-					placeholder="Email"
-					value={email}
-					onChangeText={(text) => setEmail(text)}
-				/>
-				<TextInput
-					style={styles.input}
-					placeholder="Password"
-					secureTextEntry
-					value={password}
-					onChangeText={(text) => setPassword(text)}
-				/>
-			</View>
-
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+		  autoCapitalize="none"
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          style={styles.input}
+		  autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+      </View>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity style={styles.button} onPress={handleLoginPress}>
 					<Text style={styles.buttonText}>Login</Text>

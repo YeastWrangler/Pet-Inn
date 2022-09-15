@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { colors } from "../assets/colors";
 import { getOneSitterListing } from "../dbCalls/sitterListing";
+import moment from "moment"
 
 const IndividualSitterListing = ({ navigation, route }) => {
 	const { id } = route.params;
@@ -38,12 +39,12 @@ const IndividualSitterListing = ({ navigation, route }) => {
 				<Text style={styles.content}>{sitterListing.location}</Text>
 				<View style={styles.datesContainer}>
 					<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Date From: </Text>
-						<Text style={styles.content}>{sitterListing.date_from}</Text>
+						<Text style={styles.heading}>From: </Text>
+						<Text style={styles.content}>{moment(sitterListing.date_from).format("MMM Do, YYYY")}</Text>
 					</View>
 					<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Date To: </Text>
-						<Text style={styles.content}>{sitterListing.date_to}</Text>
+						<Text style={styles.heading}>To: </Text>
+						<Text style={styles.content}>{moment(sitterListing.date_to).format("MMM Do, YYYY")}</Text>
 					</View>
 				</View>
 
@@ -66,11 +67,12 @@ const IndividualSitterListing = ({ navigation, route }) => {
 
 				<View style={styles.infoContainer}>
 					<Text style={styles.heading}>Date Posted: </Text>
-					<Text style={styles.content}>{sitterListing.data_posted}</Text>
+					<Text style={styles.content}>{moment(sitterListing.date_posted).format("MMM Do, YYYY")}</Text>
+	
 				</View>
 				<View style={styles.infoContainer}>
 						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{filteredData.username}</Text>
+						<Text style={styles.content}>{sitterListing.username}</Text>
 					</View>
 					<View style={styles.infoContainer}>
 					<Text style={styles.heading}>Rating: </Text>
@@ -88,10 +90,7 @@ const IndividualSitterListing = ({ navigation, route }) => {
 						<Text style={styles.content}>{sitterListing.username}</Text>
 					</View>
 				</Pressable>
-				<View style={styles.infoContainer}>
-					<Text style={styles.heading}>Rating: </Text>
-					<Text style={styles.content}>Insert Rating</Text>
-				</View>
+				
 
 				<Pressable
 					style={styles.contactButton}

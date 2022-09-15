@@ -50,7 +50,7 @@ const PostServices = () => {
 	
 
 	const handlePress = () => {
-	
+	console.log(newListing)
 		postSitterListing(newListing).then((data) => {
 			Alert.alert("Your Post Was Successful", "You'll be cuddling pets in no time!")
 		}).catch((err) => {
