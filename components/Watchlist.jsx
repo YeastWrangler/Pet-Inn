@@ -23,8 +23,6 @@ const WatchList = ({ navigation }) => {
 	const { currUser, setCurrUser } = useContext(userContext);
 	const [count, setCount] = useState("");
 
-	console.log(currUser.watchlist);
-
 	useEffect(() => {
 		getWatchList(currUser.username).then((data) => {
 			setwatchList(data);

@@ -16,12 +16,12 @@ import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
 import { addToWatchList, getUserInfo, getWatchList } from "../dbCalls/User";
 import userContext from "../context/context";
+import { colors } from "../assets/colors";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
 	const { id, username } = route.params;
 	const [ownerListing, setOwnerListing] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [userEmail, setUserEmail] = useState("");
 	const { currUser } = useContext(userContext);
 
 	useEffect(() => {
@@ -50,15 +50,12 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 		getWatchList(currUser.username).then((data) => {
 			for (i = 0; i < data.length; i++) {
 				if (data[i] === ownerListing) {
-					console.log("yep");
 					count++;
 				}
 			}
 			if (count == 1) {
-				console.log("count");
 				e.preventDefault();
 			} else {
-				console.log("gone through");
 				addToWatchList(currUser.username, ownerListing);
 			}
 		});
@@ -122,6 +119,10 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 						{moment(ownerListing.date_added).format("MMM Do, YYYY")}
 					</Text>
 				</View>
+				<View style={styles.infoContainer}>
+					<Text style={styles.heading}>Posted By: </Text>
+					<Text style={styles.content}>{ownerListing.username}</Text>
+				</View>
 
 				<Pressable
 					style={styles.contactButton}
@@ -131,8 +132,10 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 					}}
 				>
 					<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{ownerListing.username}</Text>
+						<Text style={styles.contactButtonText}>
+							Click to See Reviews of User:{" "}
+						</Text>
+						<Text style={styles.content2}>{ownerListing.username}</Text>
 					</View>
 				</Pressable>
 				<Pressable
@@ -174,11 +177,14 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		backgroundColor: "pink",
+		height: 1000,
 	},
 	listingTitle: {
 		fontSize: 20,
 		fontWeight: "700",
-		margin: 10,
+		margin: 20,
+		width: "80%",
+		textAlign: "center",
 	},
 	datesContainer: {
 		flexDirection: "row",
@@ -202,7 +208,13 @@ const styles = StyleSheet.create({
 		fontWeight: "700",
 	},
 	content: {
-		fontSize: 16,
+		fontSize: 18,
+	},
+	content2: {
+		fontSize: 18,
+		fontWeight: "700",
+		color: "yellow",
+		textDecorationLine: "underline",
 	},
 	payment: {
 		fontSize: 20,
@@ -212,7 +224,7 @@ const styles = StyleSheet.create({
 	contactButton: {
 		margin: 10,
 		padding: 6,
-		backgroundColor: "blue",
+		backgroundColor: colors.buttonColor,
 		borderRadius: 6,
 		color: "white",
 	},

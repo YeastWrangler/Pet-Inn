@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import userContext from "../context/context";
 import { getReviews } from "../dbCalls/review";
+import { logoutUser } from "../dbCalls/User";
 
 const UserProfile = ({ navigation }) => {
 	const { currUser, setCurrUser } = useContext(userContext);
@@ -26,6 +27,15 @@ const UserProfile = ({ navigation }) => {
 				}
 			});
 	}, [currUser]);
+
+	const logoutHandler = () => {
+		logoutUser().then(() => {
+			console.log("get lost");
+			setCurrUser({})
+			navigation.navigate("Login")
+			Alert.alert("You've Been Logged Out!");
+		})
+	}
 
 	return (
 		<SafeAreaView>
@@ -74,8 +84,11 @@ const UserProfile = ({ navigation }) => {
 				<Text style={styles.heading}>My Wishlist: </Text>
 				<Text style={styles.content}></Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.contactButton} onPress={() => {}}>
+			<TouchableOpacity style={styles.contactButton}>
 				<Text style={styles.contactButtonText}>Edit My Profile</Text>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.contactButton} onPress={logoutHandler}>
+				<Text style={styles.contactButtonText}>Logout</Text>
 			</TouchableOpacity>
 		</SafeAreaView>
 	);

@@ -9,6 +9,7 @@ import { StyleSheet, View, Image } from "react-native";
 import Screens from "./Screens";
 import UserProfile from "./UserProfile";
 import userContext from "../context/context";
+import WatchList from "./Watchlist";
 
 const NavBar = () => {
 	const Tab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ const NavBar = () => {
 						iconName = "home";
 					} else if (rn === "Inbox") {
 						iconName = "mail";
-					} else if (rn === "Wishlist") {
+					} else if (rn === "Watchlist") {
 						iconName = "heart";
 					}
 					// else if (rn === "Profile") {
@@ -38,25 +39,28 @@ const NavBar = () => {
 			})}
 		>
 			<Tab.Group screenOptions={{ headerShown: false }}>
-				<Tab.Screen name="Home" component={Screens} />
-				<Tab.Screen
-					name="Inbox"
-					component={ServicesList}
-					options={{ tabBarBadge: 2 }}
-				/>
-				<Tab.Screen name="Wishlist" component={PetsList} />
-				<Tab.Screen
-					name="Profile"
-					component={UserProfile}
-					options={{
-						// tabBarShowLabel: false,
-						tabBarIcon: () => (
-							<View style={styles.avatarContainer}>
-								<Image style={styles.avatar} source={currUser.avatar_url} />
-							</View>
-						),
-					}}
-				/>
+				<Tab.Screen name="Home Page" component={Screens} />
+				{/* <Tab.Screen name="Home Page" component={LoggedinHome} /> */}
+				{currUser.username && (
+					<Tab.Screen name="Watchlist" component={WatchList} />
+				)}
+				{currUser.username && (
+					<Tab.Screen
+						name="Profile"
+						component={UserProfile}
+						options={{
+							// tabBarShowLabel: false,
+							tabBarIcon: () => (
+								<View style={styles.avatarContainer}>
+									<Image
+										style={styles.avatar}
+										source={{ uri: currUser.avatar_url }}
+									/>
+								</View>
+							),
+						}}
+					/>
+				)}
 			</Tab.Group>
 		</Tab.Navigator>
 	);

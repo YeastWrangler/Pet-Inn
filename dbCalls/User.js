@@ -30,17 +30,15 @@ export const registerUser = (registerData) => {
 
 export const deleteUser = (username) => {};
 
-export const addUser = (username) => {};
+export const logoutUser = () => {
+	return axios.get(`https://busy-ruby-narwhal-kit.cyclic.app/api/users/logout`);
+};
 
 export const addToWatchList = (username, newListing) => {
-	return axios
-		.patch(
-			`https://busy-ruby-narwhal-kit.cyclic.app/api/users/${username}/watchlist`,
-			newListing
-		)
-		.then(({ data }) => {
-			return data.user.watchlist;
-		});
+	return axios.patch(
+		`https://busy-ruby-narwhal-kit.cyclic.app/api/users/${username}/watchlist`,
+		newListing
+	);
 };
 
 export const deleteFromWatchList = (username, _id) => {

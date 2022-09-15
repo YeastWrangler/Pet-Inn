@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
     logo: {
       width: 120,
       height: 120,
-     
-
+    
     },
 
     logoBox: {
@@ -62,14 +61,13 @@ const styles = StyleSheet.create({
     login: {
       position:"absolute",
       bottom:"50%",
-
- 
     },
 
     loginContainer: {
       backgroundColor: colors.mainColor,
       width: "100%",
-      height: "7%"
+      height: "10%",
+      padding: 15
     }
 })
 

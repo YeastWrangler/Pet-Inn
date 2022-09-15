@@ -16,13 +16,13 @@ import { loginUser } from "../dbCalls/User";
 const Login = ({ navigation }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const { currUser, setCurrUser } = useContext(userContext);
+	const { setCurrUser } = useContext(userContext);
 
 	const pressHandler = () => {
 		navigation.navigate("LoggedinHome");
 	};
 	const loginData = { email: email, password: password };
-	console.log(loginData);
+
 	const handleLoginPress = () => {
 		loginUser(loginData)
 			.then((data) => {
@@ -82,6 +82,7 @@ const Login = ({ navigation }) => {
 		</KeyboardAvoidingView>
 	);
 };
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
