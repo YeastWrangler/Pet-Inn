@@ -23,7 +23,7 @@ const NavBar = () => {
 					let iconName;
 					let rn = route.name;
 
-					if (rn === "Home") {
+					if (rn === "Home" || rn === "Home Page") {
 						iconName = "home";
 					} else if (rn === "Inbox") {
 						iconName = "mail";

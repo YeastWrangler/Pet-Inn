@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
       height:140,
       width:140,
       overflow:"hidden",
-      backgroundColor: "white",
+      backgroundColor: colors.cream,
       textAlign:"center",
       border:"solid",
       position: "absolute",
