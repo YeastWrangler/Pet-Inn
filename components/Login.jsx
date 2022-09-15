@@ -50,12 +50,14 @@ const Login = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
+		  autoCapitalize="none"
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
+		  autoCapitalize="none"
           placeholder="Password"
           secureTextEntry
           value={password}

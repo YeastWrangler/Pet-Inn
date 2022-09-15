@@ -70,7 +70,7 @@ const IndividualSitterListing = ({ navigation, route }) => {
 				</View>
 				<View style={styles.infoContainer}>
 						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{filteredData.username}</Text>
+						<Text style={styles.content}>{sitterListing.username}</Text>
 					</View>
 					<View style={styles.infoContainer}>
 					<Text style={styles.heading}>Rating: </Text>
