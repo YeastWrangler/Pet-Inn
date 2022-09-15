@@ -11,17 +11,26 @@ import {
 import { colors } from "../assets/colors";
 import moment from "moment";
 import userContext from "../context/context";
-import { deleteFromWatchList } from "../dbCalls/User";
+import {
+	deleteFromWatchList,
+	getUserInfo,
+	getWatchList,
+} from "../dbCalls/User";
 
 const WatchList = ({ navigation }) => {
 	const [watchList, setwatchList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const { currUser, setCurrUser } = useContext(userContext);
+	const [count, setCount] = useState("");
+
+	console.log(currUser.watchlist);
 
 	useEffect(() => {
-		setwatchList(currUser.watchlist);
-		setIsLoading(false);
-	}, [currUser, watchList]);
+		getWatchList(currUser.username).then((data) => {
+			setwatchList(data);
+			setIsLoading(false);
+		});
+	}, [count]);
 
 	if (isLoading)
 		return <ActivityIndicator style={styles.loadingIndicator} size="large" />;
@@ -74,6 +83,7 @@ const WatchList = ({ navigation }) => {
 								onPress={() => {
 									console.log("hello");
 									deleteFromWatchList(currUser.username, item._id);
+									setCount(item._id);
 								}}
 								style={styles.centerContent}
 							>

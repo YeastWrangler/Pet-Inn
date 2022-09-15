@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Login from "./Login";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -9,22 +9,10 @@ import { StyleSheet, View, Image } from "react-native";
 import Screens from "./Screens";
 import UserProfile from "./UserProfile";
 import userContext from "../context/context";
-import WatchList from "./Watchlist";
-import LoggedinHome from "./LoggedinHome";
 
 const NavBar = () => {
 	const Tab = createBottomTabNavigator();
 	const { currUser, setCurrUser } = useContext(userContext);
-
-	const [showTab, setShowTab] = useState(false);
-
-	useEffect(() => {
-		if (currUser.avatar_url !== undefined) {
-			setShowTab(true);
-		} else {
-			setShowTab(false);
-		}
-	}, [currUser]);
 
 	return (
 		<Tab.Navigator
@@ -34,9 +22,11 @@ const NavBar = () => {
 					let iconName;
 					let rn = route.name;
 
-					if (rn === "Home Page") {
+					if (rn === "Home") {
 						iconName = "home";
-					} else if (rn === "Watchlist") {
+					} else if (rn === "Inbox") {
+						iconName = "mail";
+					} else if (rn === "Wishlist") {
 						iconName = "heart";
 					}
 					// else if (rn === "Profile") {
@@ -47,32 +37,27 @@ const NavBar = () => {
 				},
 			})}
 		>
-			{showTab ? (
-				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Main Screen" component={Screens} />
-					<Tab.Screen name="Home Page" component={LoggedinHome} />
-					<Tab.Screen name="Watchlist" component={WatchList} />
-					<Tab.Screen
-						name="Profile"
-						component={UserProfile}
-						options={{
-							// tabBarShowLabel: false,
-							tabBarIcon: () => (
-								<View style={styles.avatarContainer}>
-									<Image
-										style={styles.avatar}
-										source={{ uri: currUser.avatar_url }}
-									/>
-								</View>
-							),
-						}}
-					/>
-				</Tab.Group>
-			) : (
-				<Tab.Group screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Main Screen" component={Screens} />
-				</Tab.Group>
-			)}
+			<Tab.Group screenOptions={{ headerShown: false }}>
+				<Tab.Screen name="Home" component={Screens} />
+				<Tab.Screen
+					name="Inbox"
+					component={ServicesList}
+					options={{ tabBarBadge: 2 }}
+				/>
+				<Tab.Screen name="Wishlist" component={PetsList} />
+				<Tab.Screen
+					name="Profile"
+					component={UserProfile}
+					options={{
+						// tabBarShowLabel: false,
+						tabBarIcon: () => (
+							<View style={styles.avatarContainer}>
+								<Image style={styles.avatar} source={currUser.avatar_url} />
+							</View>
+						),
+					}}
+				/>
+			</Tab.Group>
 		</Tab.Navigator>
 	);
 };

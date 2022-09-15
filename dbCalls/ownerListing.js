@@ -26,6 +26,7 @@ export const deleteOwnerListing = (id) => {
 };
 
 export const getOneOwnerListing = (id) => {
+	console.log(id);
 	return axios
 		.get(`https://busy-ruby-narwhal-kit.cyclic.app/api/owners/listings/${id}`)
 		.then(({ data }) => {

@@ -14,7 +14,7 @@ import {
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
-import { addToWatchList, getUserInfo } from "../dbCalls/User";
+import { addToWatchList, getUserInfo, getWatchList } from "../dbCalls/User";
 import userContext from "../context/context";
 
 const IndividualOwnerListing = ({ navigation, route }) => {
@@ -34,10 +34,8 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 				console.log(err);
 				//need to error handle
 			});
-		console.log(username, currUser);
 		getUserInfo(username)
 			.then((data) => {
-				console.log("data", data);
 				// setUserEmail(email);
 				// setIsLoading(false);
 			})
@@ -47,9 +45,23 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 			});
 	}, []);
 
-	const handleAddingToList = () => {
-		addToWatchList(currUser.username, ownerListing);
-		console.log("hello");
+	const handleAddingToList = (e) => {
+		let count = 0;
+		getWatchList(currUser.username).then((data) => {
+			for (i = 0; i < data.length; i++) {
+				if (data[i] === ownerListing) {
+					console.log("yep");
+					count++;
+				}
+			}
+			if (count == 1) {
+				console.log("count");
+				e.preventDefault();
+			} else {
+				console.log("gone through");
+				addToWatchList(currUser.username, ownerListing);
+			}
+		});
 	};
 
 	if (isLoading)
