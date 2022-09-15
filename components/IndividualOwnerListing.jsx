@@ -14,7 +14,7 @@ import {
 import Slideshow from "react-native-image-slider-show";
 import { getOneOwnerListing } from "../dbCalls/ownerListing";
 import moment from "moment";
-import { addToWatchList, getUserInfo } from "../dbCalls/User";
+import { addToWatchList, getUserInfo, getWatchList } from "../dbCalls/User";
 import userContext from "../context/context";
 import { colors } from "../assets/colors";
 
@@ -34,10 +34,8 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 				console.log(err);
 				//need to error handle
 			});
-		console.log(username, currUser);
 		getUserInfo(username)
 			.then((data) => {
-				console.log("data", data);
 				// setUserEmail(email);
 				// setIsLoading(false);
 			})
@@ -47,9 +45,20 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 			});
 	}, []);
 
-	const handleAddingToList = () => {
-		addToWatchList(currUser.username, ownerListing);
-		console.log("hello");
+	const handleAddingToList = (e) => {
+		let count = 0;
+		getWatchList(currUser.username).then((data) => {
+			for (i = 0; i < data.length; i++) {
+				if (data[i] === ownerListing) {
+					count++;
+				}
+			}
+			if (count == 1) {
+				e.preventDefault();
+			} else {
+				addToWatchList(currUser.username, ownerListing);
+			}
+		});
 	};
 
 	if (isLoading)
@@ -111,9 +120,9 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 					</Text>
 				</View>
 				<View style={styles.infoContainer}>
-						<Text style={styles.heading}>Posted By: </Text>
-						<Text style={styles.content}>{ownerListing.username}</Text>
-					</View>
+					<Text style={styles.heading}>Posted By: </Text>
+					<Text style={styles.content}>{ownerListing.username}</Text>
+				</View>
 
 				<Pressable
 					style={styles.contactButton}
@@ -121,11 +130,13 @@ const IndividualOwnerListing = ({ navigation, route }) => {
 						navigation.navigate("Reviews", { user: ownerListing.username });
 						//needs to open chat window/page when clicked
 					}}
-				><View style={styles.infoContainer}>
-				<Text style={styles.contactButtonText}>Click to See Reviews of User: </Text>
-				<Text style={styles.content2}>{ownerListing.username}</Text>
-			</View>
-				
+				>
+					<View style={styles.infoContainer}>
+						<Text style={styles.contactButtonText}>
+							Click to See Reviews of User:{" "}
+						</Text>
+						<Text style={styles.content2}>{ownerListing.username}</Text>
+					</View>
 				</Pressable>
 				<Pressable
 					style={styles.contactButton}
@@ -166,15 +177,14 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: "center",
 		backgroundColor: "pink",
-		height:1000
-		
+		height: 1000,
 	},
 	listingTitle: {
 		fontSize: 20,
 		fontWeight: "700",
 		margin: 20,
-		width:"80%",
-		textAlign: "center"
+		width: "80%",
+		textAlign: "center",
 	},
 	datesContainer: {
 		flexDirection: "row",
@@ -204,7 +214,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: "700",
 		color: "yellow",
-		textDecorationLine: "underline"
+		textDecorationLine: "underline",
 	},
 	payment: {
 		fontSize: 20,

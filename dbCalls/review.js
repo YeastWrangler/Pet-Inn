@@ -8,7 +8,13 @@ export const getReviews = (username) => {
 		});
 };
 
-export const postReview = () => {};
+export const postReview = (newReview) => {
+	console.log(newReview);
+	return axios.post(
+		`https://busy-ruby-narwhal-kit.cyclic.app/api/reviews`,
+		newReview
+	);
+};
 
 export const deleteReview = (id) => {
 	return axios.delete(
