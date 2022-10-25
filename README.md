@@ -4,7 +4,7 @@ AirBnB for pets
 
 ## About our app
 
-Our app is designed for people going on holiday to be able to find someone to mind their pets and their home.
+Our app is designed for people going on holiday to be able to find someone to mind their pets and their home. A short demo can be seen here: https://youtu.be/OKMp1i23GlQ
 
 ## Backend
 
